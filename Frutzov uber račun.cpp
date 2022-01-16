@@ -20,7 +20,12 @@ USEFORM("unitLogo.cpp", formLogo);
 USEFORM("unitClose.cpp", formClose);
 USEFORM("unitAdditionalOptions.cpp", formAdditionalOptions);
 USEFORM("unitCorruptSettings.cpp", formCorruptSettings);
-//---------------------------------------------------------------------------
+//******************************************************************************
+
+
+//******************************************************************************
+// MAIN
+//******************************************************************************
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
 	try
