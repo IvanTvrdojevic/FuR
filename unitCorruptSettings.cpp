@@ -132,3 +132,10 @@ void __fastcall TformCorruptSettings::FormClose(TObject *Sender, TCloseAction &A
 	formLogo->fadeTimer->Enabled = true;
 }
 //---------------------------------------------------------------------------
+void __fastcall TformCorruptSettings::GroupBox1MouseEnter(TObject *Sender)
+{
+	labelPathToFile->Hint = labelPathToFile->Caption;
+	labelPathToFile->ShowHint = true;
+}
+//---------------------------------------------------------------------------
+

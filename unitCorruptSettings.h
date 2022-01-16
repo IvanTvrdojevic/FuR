@@ -18,11 +18,12 @@ __published:	// IDE-managed Components
 	TMemo *Memo1;
 	TButton *Button3;
 	TButton *Button4;
-	TLabel *Label1;
+	TLabel *labelPathToFile;
 	TButton *Button5;
 	void __fastcall Button2Click(TObject *Sender);
 	void __fastcall Button1Click(TObject *Sender);
 	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
+	void __fastcall GroupBox1MouseEnter(TObject *Sender);
 private:	// User declarations
 public:		// User declarations
 	__fastcall TformCorruptSettings(TComponent* Owner);
