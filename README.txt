@@ -1,0 +1,1 @@
+Mini application for receipt issuing

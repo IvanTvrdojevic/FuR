@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<programData>
+	<printerName/>
+	
+	<receiptFilePath/>
+	<receiptFileName/>
+	<receiptDateSufix/>
+	<receiptNumberSufix/>
+	<receiptNumber/>
+	
+	<messageFontSize/>
+	<messageFontColor/>
+	
+	<OIBs>
+		<OIB/>
+		<OIB/>
+	</OIBs>
+	
+	<articleTypes>
+		<articleType/>
+		<articleType/>
+	</articleTypes>	
+</programData>

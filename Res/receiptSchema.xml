@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<receipt>
+	<number>1</number>
+	<serviceDate>01.01.2021.</serviceDate>
+	<issueDate>01.01.2021.</issueDate>
+	<issueTime>00:00</issueTime>
+	<arrivalDate>01.01.2021.</arrivalDate>
+	<card>HR00000000000000</card>
+	<OIB>_00000000000</OIB>
+	<articleID>1</articleID>
+	<articleType>0</articleType>
+	<quantity>0,0</quantity>
+	<measureUnit>0</measureUnit>
+	<wholesalePrice>0,0</wholesalePrice>
+	<wholesaleDiscount>0,0</wholesaleDiscount>
+	<pdv>0,0</pdv>
+</receipt>
