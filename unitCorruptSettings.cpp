@@ -3,8 +3,11 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "common.h"
+
 #include "unitLogo.h"
 #include "unitCorruptSettings.h"
+#include "unitSetConfigFolder.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -132,10 +135,25 @@ void __fastcall TformCorruptSettings::FormClose(TObject *Sender, TCloseAction &A
 	formLogo->fadeTimer->Enabled = true;
 }
 //---------------------------------------------------------------------------
-void __fastcall TformCorruptSettings::GroupBox1MouseEnter(TObject *Sender)
+void __fastcall TformCorruptSettings::groupBoxConfigMouseEnter(TObject *Sender)
 {
 	labelPathToFile->Hint = labelPathToFile->Caption;
 	labelPathToFile->ShowHint = true;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TformCorruptSettings::Button3Click(TObject *Sender)
+{
+	memoXMLFile->Lines->LoadFromFile(labelPathToFile->Caption);
+	groupBoxConfig->Top = 200 + DEFAULT_MARGIN;
+	groupBoxConfig->Visible = true;
+	formCorruptSettings->Top = (Screen->Height - formCorruptSettings->Height)/2;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TformCorruptSettings::FormShow(TObject *Sender)
+{
+	labelPathToFile->Caption = formSetConfigFolder->getProgramDataFileName();
 }
 //---------------------------------------------------------------------------
 

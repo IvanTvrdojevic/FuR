@@ -74,6 +74,7 @@ void __fastcall TformLogo::FormShow(TObject *Sender)
 	setupFormVisuals(formClose);
 	setupFormVisuals(formAdditionalOptions);
 	setupFormVisuals(formShowMessageCustom);
+	setupFormVisuals(formCorruptSettings);
 
 	formMain->Caption = "FRUTZOV UBER RACUN";
 	formMain->Color =  clBtnFace;
