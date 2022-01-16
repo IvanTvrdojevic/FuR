@@ -8,10 +8,12 @@
 #include "unitLogo.h"
 #include "unitCorruptSettings.h"
 #include "unitSetConfigFolder.h"
+#include "unitMain.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
 TformCorruptSettings *formCorruptSettings;
+
 //---------------------------------------------------------------------------
 __fastcall TformCorruptSettings::TformCorruptSettings(TComponent* Owner)
 	: TForm(Owner)
@@ -124,8 +126,13 @@ void __fastcall TformCorruptSettings::Button2Click(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TformCorruptSettings::Button1Click(TObject *Sender)
+void __fastcall TformCorruptSettings::buttonCloseAndFixClick(TObject *Sender)
 {
+	std::wstring exeCmd = L"notepad";
+	std::wstring paramCmd = L"\"" + std::wstring(labelPathToFile->Caption) + L"\"";
+
+	// POOR MANS EXECUTE PROCESS
+	ShellExecute(GetDesktopWindow(), L"open", exeCmd.c_str(), paramCmd.c_str(), NULL, SW_SHOWMAXIMIZED);
 	Application->Terminate();
 }
 //---------------------------------------------------------------------------
