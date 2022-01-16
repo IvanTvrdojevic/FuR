@@ -36,7 +36,7 @@ void __fastcall TformSetPrinter::FormShow(TObject *Sender)
 
 void __fastcall TformSetPrinter::Button1Click(TObject *Sender)
 {
-	saveFieldsToProgramDataFile();
+	programData.update_printerName();
 	formMain->doThePrint();
 
 	Close();

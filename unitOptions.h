@@ -48,6 +48,8 @@ __published:	// IDE-managed Components
 	void __fastcall btnSaveClick(TObject *Sender);
 	void __fastcall btnAdditionalOptionsClick(TObject *Sender);
 private:	// User declarations
+	void resetFormProgramDataFields();
+	void saveFormProgramDataFields();
 public:		// User declarations
 	__fastcall TformOptions(TComponent* Owner);
 
@@ -55,7 +57,6 @@ public:		// User declarations
 	AnsiString getReceiptFileNameWitouthExt();
 
 	void updateDependentFormFields();
-    void resetFormFields();
 };
 //******************************************************************************
 

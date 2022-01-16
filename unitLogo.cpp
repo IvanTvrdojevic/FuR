@@ -18,6 +18,7 @@
 #include "unitSaveMessage.h"
 #include "unitAdditionalOptions.h"
 #include "unitShowMessageCustom.h"
+#include "unitCorruptSettings.h"
 //******************************************************************************
 
 
@@ -77,7 +78,11 @@ void __fastcall TformLogo::FormShow(TObject *Sender)
 	formMain->Caption = "FRUTZOV UBER RACUN";
 	formMain->Color =  clBtnFace;
 
-	programData = new TXMLBinding_programData(formMain->XMLDocProgramData);
+	bool openSettings = programData.openFromFile(formSetConfigFolder->getProgramDataFileName());
+	if(!openSettings){
+		formCorruptSettings->ShowModal();
+        return;
+	}
 
 	if(checkFirstRun())
 	{

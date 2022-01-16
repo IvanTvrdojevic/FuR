@@ -24,9 +24,10 @@
 #include <Xml.XmlTransform.hpp>
 #include <Vcl.Grids.hpp>
 
-#include "receiptSchema.h"
 #include <Xml.omnixmldom.hpp>
 #include <Xml.adomxmldom.hpp>
+
+#include "receiptSchema.h"
 //******************************************************************************
 
 
@@ -154,6 +155,7 @@ private:	// User declarations
 	void printToFile();
 	void printWithPrinter();
 	bool checkEmpty();
+	void saveFormProgramDataFields();
 	void updateFieldsFromReceipt(_di_IXMLreceiptType receipt);
 	void openReceipt();
 	void saveReceiptToFile(AnsiString fileName);

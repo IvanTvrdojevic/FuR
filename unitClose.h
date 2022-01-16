@@ -18,10 +18,10 @@
 class TformClose : public TForm
 {
 __published:	// IDE-managed Components
-	TLabel *labelWarning;
 	TButton *Button1;
 	TButton *Button2;
 	TLabel *labelSaveWarning;
+	TLabel *labelWarning;
 	void __fastcall Button1Click(TObject *Sender);
 	void __fastcall Button2Click(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);

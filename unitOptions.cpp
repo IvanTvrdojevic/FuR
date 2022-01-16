@@ -64,12 +64,20 @@ void TformOptions::updateDependentFormFields(){
 	updateReceiptFileNameWitouthExt();
 }
 
-void TformOptions::resetFormFields(){
-	programData->setFieldOf_printerName();
-	programData->setFieldOf_receiptFilePath();
-	programData->setFieldOf_receiptFileName();
-	programData->setFieldOf_receiptDateSufix();
-	programData->setFieldOf_receiptNumberSufix();
+void TformOptions::resetFormProgramDataFields(){
+	programData.setFieldOf_printerName();
+	programData.setFieldOf_receiptFilePath();
+	programData.setFieldOf_receiptFileName();
+	programData.setFieldOf_receiptDateSufix();
+	programData.setFieldOf_receiptNumberSufix();
+}
+
+void TformOptions::saveFormProgramDataFields(){
+	programData.update_printerName();
+	programData.update_receiptFilePath();
+	programData.update_receiptFileName();
+	programData.update_receiptDateSufix();
+	programData.update_receiptNumberSufix();
 }
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //															      UPDATING LOGIC
@@ -111,14 +119,14 @@ void __fastcall TformOptions::btnAdditionalOptionsClick(TObject *Sender)
 
 void __fastcall TformOptions::btnSaveClick(TObject *Sender)
 {
-	saveFieldsToProgramDataFile();
+	saveFormProgramDataFields();
 
 	Close();
 }
 
 void __fastcall TformOptions::btnCancelClick(TObject *Sender)
 {
-	resetFormFields();
+	resetFormProgramDataFields();
 
 	Close();
 }

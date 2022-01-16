@@ -29,6 +29,8 @@ void addUniqueItemToItemsListField(String item, T_FIELD* itemsListField);
 
 void addUniqueItemToComboBox(TComboBox* comboBox, String item = "");
 
+String removeWhitespacesFromString(String const& input);
+
 String getErrorMessage(DWORD errorMessageID);
 String getErrorMessageFromShellExecute(HINSTANCE errorMessageID);
 

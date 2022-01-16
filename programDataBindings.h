@@ -19,12 +19,12 @@ private:
     void InitFromFile();
 
 	String fileName;
-	TXMLDocument* XMLDocument;
+	_di_IXMLDocument XMLDocument;
 	_di_IXMLprogramDataType programData;
-public:		// User declarations
-	TXMLBinding_programData(TXMLDocument* XMLDocument);
 
-    void setFieldOf_printerName();
+public:		// User declarations
+	TXMLBinding_programData();
+	void setFieldOf_printerName();
 	void setFieldOf_receiptFilePath();
 	void setFieldOf_receiptFileName();
 	void setFieldOf_receiptDateSufix();
@@ -48,9 +48,8 @@ public:		// User declarations
 	void update_articleTypes();
 	void updateAll_programData();
 
-	void setFileName(String fileName);
-	void readFromFile();
-	void saveToFile();
+	bool openFromFile(String fileName);
+	void saveToFile(String fileName);
 };
 //******************************************************************************
 

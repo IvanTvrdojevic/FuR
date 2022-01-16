@@ -15,8 +15,7 @@
 //******************************************************************************
 // METHODS
 //******************************************************************************
-TXMLBinding_programData::TXMLBinding_programData(TXMLDocument* XMLDocument){
-	this->XMLDocument = XMLDocument;
+TXMLBinding_programData::TXMLBinding_programData(){
 }
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -116,7 +115,6 @@ void TXMLBinding_programData::update_messageFontColor(){
 
 void TXMLBinding_programData::update_OIBs(){
 	getDataFromItemsListField(programData->OIBs, formMain->comboBoxOIBs);
-
 }
 
 void TXMLBinding_programData::update_articleTypes(){
@@ -145,30 +143,36 @@ void TXMLBinding_programData::updateAll_programData(){
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // OPEN/SAVE LOGIC
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-void TXMLBinding_programData::setFileName(String fileName)
+bool TXMLBinding_programData::openFromFile(String fileName)
 {
-	this->fileName = fileName;
-}
+	CoInitializeEx(NULL, 0);
+	XMLDocument = interface_cast<Xmlintf::IXMLDocument>(new TXMLDocument(NULL));
+	XMLDocument->Active = true;
 
-void TXMLBinding_programData::InitFromFile()
-{
-	if(FileExists(fileName))
-		XMLDocument->LoadFromFile(fileName);
+	try{
+		if(FileExists(fileName))
+			XMLDocument->LoadFromFile(fileName);
+	}
+	catch(...){
+		return false;
+	}
 
 	this->programData = GetprogramData(XMLDocument);
-}
-
-void TXMLBinding_programData::readFromFile()
-{
-	InitFromFile();
 	setAllFieldsOf_programData();
+
+	return true;
 }
 
-void TXMLBinding_programData::saveToFile()
+void TXMLBinding_programData::saveToFile(String fileName)
 {
-    InitFromFile();
-    updateAll_programData();
-	XMLDocument->SaveToFile(fileName);
+	String xmlStr;
+	XMLDocument->SaveToXML(xmlStr);
+	xmlStr = FormatXMLData(xmlStr);
+
+	TStringList *list = new TStringList;
+	list->Add("<?xml version=\"1.0\"?>");
+	list->Add(xmlStr);
+	list->SaveToFile(fileName, TEncoding::UTF8);
 }
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //															     OPEN/SAVE LOGIC

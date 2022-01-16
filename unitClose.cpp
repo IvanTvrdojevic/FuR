@@ -4,9 +4,12 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "common.h"
+
 #include "unitMain.h"
 #include "unitLogo.h"
 #include "unitClose.h"
+#include "unitSetConfigFolder.h"
 //******************************************************************************
 
 
@@ -29,6 +32,7 @@ __fastcall TformClose::TformClose(TComponent* Owner)
 
 void __fastcall TformClose::Button1Click(TObject *Sender)
 {
+	programData.saveToFile(formSetConfigFolder->getProgramDataFileName());
 	Application->Terminate();
 }
 

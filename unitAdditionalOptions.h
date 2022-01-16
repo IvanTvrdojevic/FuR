@@ -29,9 +29,10 @@ __published:	// IDE-managed Components
 	void __fastcall btnCancelClick(TObject *Sender);
 	void __fastcall btnSaveClick(TObject *Sender);
 private:	// User declarations
+	void resetFormProgramDataFields();
+	void saveFormProgramDataFields();
 public:		// User declarations
 	__fastcall TformAdditionalOptions(TComponent* Owner);
-    void resetFormFields();
 };
 //******************************************************************************
 

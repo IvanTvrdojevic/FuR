@@ -64,6 +64,7 @@ __fastcall TformMain::TformMain(TComponent* Owner)
 // New receipt
 void TformMain::makeNew()
 {
+	programData.setFieldOf_receiptNumber();
 	spinEditReceiptNumber->Value += 1;
 
 	editCard->Text = formSetConfigFolder->mainCard->Text;
@@ -92,11 +93,8 @@ void TformMain::makeNew()
 	datePickerIssueDate->Color = clRed;
 	datePickerArrivalDate->Color = clRed;
 
-	addUniqueItemToComboBox(comboBoxArticleTypes, "Soja");
-	addUniqueItemToComboBox(comboBoxArticleTypes, "Kukuruz");
-	addUniqueItemToComboBox(comboBoxArticleTypes, "Žito");
-	addUniqueItemToComboBox(comboBoxArticleTypes, "Svinje");
-    comboBoxMeasureUnit->ItemIndex = -1;
+	programData.setFieldOf_OIBs();
+	programData.setFieldOf_articleTypes();
 
 	addUniqueItemToComboBox(comboBoxMeasureUnit, "kg");
 	addUniqueItemToComboBox(comboBoxMeasureUnit, "g");
@@ -372,6 +370,22 @@ void TformMain::doThePrint(){
 
 
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// PROGRAM DATA LOGIC
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+void TformMain::saveFormProgramDataFields(){
+	addUniqueItemToComboBox(comboBoxOIBs);
+	addUniqueItemToComboBox(comboBoxArticleTypes);
+
+	programData.update_receiptNumber();
+	programData.update_OIBs();
+	programData.update_articleTypes();
+}
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+//															  PROGRAM DATA LOGIC
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // RECEIPT LOGIC
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -420,15 +434,7 @@ void TformMain::openReceipt(){
 
 //------------------------------------------------------------------------------
 //                   update receipt file from receipt fields
-void TformMain::saveReceiptToFile(AnsiString fileName)
-{
-	XMLDocReceipt->SaveToFile(fileName);
-}
-
 void TformMain::saveReceipt(){
-	DBG_MSG("getReceiptFileName " + getReceiptFileName());
-	DBG_MSG("getProgramDataFileName " + formSetConfigFolder->getProgramDataFileName());
-
 	_di_IXMLreceiptType receipt = Getreceipt(XMLDocReceipt);
 
 	receipt->number = spinEditReceiptNumber->Value;
@@ -448,11 +454,13 @@ void TformMain::saveReceipt(){
 
 	saveReceiptToFile(getReceiptFileName());
 	receiptSaved = True;
-
-	addUniqueItemToComboBox(comboBoxOIBs);
-	addUniqueItemToComboBox(comboBoxArticleTypes);
-	saveFieldsToProgramDataFile();
 }
+
+void TformMain::saveReceiptToFile(AnsiString fileName)
+{
+	XMLDocReceipt->SaveToFile(fileName);
+}
+
 //------------------------------------------------------------------------------
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -475,6 +483,7 @@ void __fastcall TformMain::buttonPrintClick(TObject *Sender)
 	doThePrint();
 
 	saveReceipt();
+	saveFormProgramDataFields();
 
 	formPrintMessage->ShowModal();
 }
@@ -484,6 +493,7 @@ void __fastcall TformMain::buttonSaveClick(TObject *Sender)
 	if(!validateAll()) return;
 
 	saveReceipt();
+    saveFormProgramDataFields();
 
 	formSaveMessage->ShowModal();
 }
@@ -540,7 +550,6 @@ void __fastcall TformMain::Button3Click(TObject *Sender)
 
 void __fastcall TformMain::FormShow(TObject *Sender)
 {
-	readFieldsFromProgramDataFile();
 	makeNew();
 }
 

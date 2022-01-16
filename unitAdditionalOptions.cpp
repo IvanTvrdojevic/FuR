@@ -30,21 +30,26 @@ __fastcall TformAdditionalOptions::TformAdditionalOptions(TComponent* Owner)
 {
 }
 
-void TformAdditionalOptions::resetFormFields(){
-	programData->setFieldOf_messageFontSize();
-	programData->setFieldOf_messageFontColor();
+void TformAdditionalOptions::resetFormProgramDataFields(){
+	programData.setFieldOf_messageFontSize();
+	programData.setFieldOf_messageFontColor();
+}
+
+void TformAdditionalOptions::saveFormProgramDataFields(){
+	programData.update_messageFontSize();
+	programData.update_messageFontColor();
 }
 
 void __fastcall TformAdditionalOptions::btnSaveClick(TObject *Sender)
 {
-	saveFieldsToProgramDataFile();
+	saveFormProgramDataFields();
 
 	Close();
 }
 
 void __fastcall TformAdditionalOptions::btnCancelClick(TObject *Sender)
 {
-	resetFormFields();
+	resetFormProgramDataFields();
 
 	Close();
 }//******************************************************************************

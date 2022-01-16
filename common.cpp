@@ -10,7 +10,7 @@
 //******************************************************************************
 // GLOBAL VARS
 //******************************************************************************
-TXMLBinding_programData* programData;
+TXMLBinding_programData programData;
 //******************************************************************************
 
 
@@ -29,17 +29,6 @@ void setupFormVisuals(TForm* form)
 	form->Padding->Right = DEFAULT_MARGIN;
 	form->Padding->Top = DEFAULT_MARGIN;
 	form->Position = poScreenCenter;
-}
-
-void readFieldsFromProgramDataFile(){
-	programData->setFileName(formSetConfigFolder->getProgramDataFileName());
-	programData->readFromFile();
-}
-
-void saveFieldsToProgramDataFile()
-{
-	programData->setFileName(formSetConfigFolder->getProgramDataFileName());
-	programData->saveToFile();
 }
 //******************************************************************************
 

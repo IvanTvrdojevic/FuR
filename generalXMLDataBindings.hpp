@@ -103,9 +103,11 @@ void getDataFromItemsListField(T_ELEMENT element, T_FIELD* field){
 
 	for(int i = 0; i < field->Items->Count; i++)
 		element->Add(field->Items->Strings[i]);
+
+	return;
 }
 //------------------------------------------------------------------------------
-					//ivane ja sam strasno debel               AAAAAAAAAAAA stopppppp shupkko jedan odem malo odmorit i to me doceka koda neznam znam StrAsNo DeBBBBel a jadan nikad ajd lec
+
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //															      UPDATING LOGIC
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

@@ -31,7 +31,9 @@ __published:	// IDE-managed Components
 	void __fastcall Button3Click(TObject *Sender);
 	void __fastcall buttonOkayClick(TObject *Sender);
 	void __fastcall FormCreate(TObject *Sender);
+	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 private:	// User declarations
+    void setupInitialFields();
 public:		// User declarations
 	__fastcall TformSetConfigFolder(TComponent* Owner);
 	void readProgramDataPath();
