@@ -17,15 +17,10 @@ USEFORM("unitShowMessageCustom.cpp", formShowMessageCustom);
 USEFORM("unitSetPrinter.cpp", formSetPrinter);
 USEFORM("unitSetConfigFolder.cpp", formSetConfigFolder);
 USEFORM("unitLogo.cpp", formLogo);
-USEFORM("unitClose.cpp", formClose);
-USEFORM("unitAdditionalOptions.cpp", formAdditionalOptions);
 USEFORM("unitCorruptSettings.cpp", formCorruptSettings);
-//******************************************************************************
-
-
-//******************************************************************************
-// MAIN
-//******************************************************************************
+USEFORM("unitClose.cpp", formClose);
+USEFORM("Forms\unitAdditionalOptions.cpp", formAdditionalOptions);
+//---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
 	try
@@ -41,8 +36,8 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		Application->CreateForm(__classid(TformOptions), &formOptions);
 		Application->CreateForm(__classid(TformOpenNew), &formOpenNew);
 		Application->CreateForm(__classid(TformClose), &formClose);
-		Application->CreateForm(__classid(TformAdditionalOptions), &formAdditionalOptions);
 		Application->CreateForm(__classid(TformCorruptSettings), &formCorruptSettings);
+		Application->CreateForm(__classid(TformAdditionalOptions), &formAdditionalOptions);
 		Application->Run();
 	}
 	catch (Exception &exception)
