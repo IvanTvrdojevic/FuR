@@ -4,7 +4,7 @@
         <ProjectVersion>19.3</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <AppType>Application</AppType>
-        <MainSource>Frutzov uber račun.cpp</MainSource>
+        <MainSource>main.cpp</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -62,9 +62,9 @@
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
-        <IncludePath>Forms\;..\..\..\..\Desktop\Racun al ovaj nemoj obrisat\;$(IncludePath)</IncludePath>
-        <ILINK_LibraryPath>Forms\;..\..\..\..\Desktop\Racun al ovaj nemoj obrisat\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
-        <SanitizedProjectName>Frutzov_uber_račun</SanitizedProjectName>
+        <IncludePath>XML\receipt\;XML\programData\;XML\general\;utils\;Forms\;..\..\..\..\Desktop\Racun al ovaj nemoj obrisat\;$(IncludePath)</IncludePath>
+        <ILINK_LibraryPath>XML\receipt\;XML\programData\;XML\general\;utils\;Forms\;..\..\..\..\Desktop\Racun al ovaj nemoj obrisat\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <SanitizedProjectName>main</SanitizedProjectName>
         <VerInfo_Locale>1050</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <BCC_SmartPCHCache>false</BCC_SmartPCHCache>
@@ -141,120 +141,120 @@
     <ItemGroup>
         <CppCompile Include="common.cpp">
             <DependentOn>common.h</DependentOn>
-            <BuildOrder>12</BuildOrder>
+            <BuildOrder>20</BuildOrder>
         </CppCompile>
         <CppCompile Include="Forms\unitAdditionalOptions.cpp">
             <Form>formAdditionalOptions</Form>
             <FormType>dfm</FormType>
             <DependentOn>Forms\unitAdditionalOptions.h</DependentOn>
-            <BuildOrder>20</BuildOrder>
+            <BuildOrder>9</BuildOrder>
         </CppCompile>
         <CppCompile Include="Forms\unitClose.cpp">
             <Form>formClose</Form>
             <FormType>dfm</FormType>
             <DependentOn>Forms\unitClose.h</DependentOn>
-            <BuildOrder>20</BuildOrder>
+            <BuildOrder>10</BuildOrder>
         </CppCompile>
         <CppCompile Include="Forms\unitCorruptSettings.cpp">
             <Form>formCorruptSettings</Form>
             <FormType>dfm</FormType>
             <DependentOn>Forms\unitCorruptSettings.h</DependentOn>
-            <BuildOrder>20</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="Frutzov uber račun.cpp">
-            <BuildOrder>0</BuildOrder>
-        </CppCompile>
-        <None Include="generalXMLDataBindings.h">
-            <BuildOrder>20</BuildOrder>
-        </None>
-        <None Include="generalXMLDataBindings.hpp">
-            <BuildOrder>21</BuildOrder>
-        </None>
-        <CppCompile Include="programDataBindings.cpp">
-            <DependentOn>programDataBindings.h</DependentOn>
             <BuildOrder>11</BuildOrder>
         </CppCompile>
-        <CppCompile Include="programDataSchema.cpp">
-            <DependentOn>programDataSchema.h</DependentOn>
-            <BuildOrder>19</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="receiptSchema.cpp">
-            <DependentOn>receiptSchema.h</DependentOn>
-            <BuildOrder>17</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="unitLogo.cpp">
+        <CppCompile Include="Forms\unitLogo.cpp">
             <Form>formLogo</Form>
             <FormType>dfm</FormType>
-            <DependentOn>unitLogo.h</DependentOn>
-            <BuildOrder>15</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="unitMain.cpp">
-            <Form>formMain</Form>
-            <FormType>dfm</FormType>
-            <DependentOn>unitMain.h</DependentOn>
-            <BuildOrder>14</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="unitOpenNew.cpp">
-            <Form>formOpenNew</Form>
-            <FormType>dfm</FormType>
-            <DependentOn>unitOpenNew.h</DependentOn>
-            <BuildOrder>13</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="unitOptions.cpp">
-            <Form>formOptions</Form>
-            <FormType>dfm</FormType>
-            <DependentOn>unitOptions.h</DependentOn>
+            <DependentOn>Forms\unitLogo.h</DependentOn>
             <BuildOrder>12</BuildOrder>
         </CppCompile>
-        <CppCompile Include="unitPrintMessage.cpp">
+        <CppCompile Include="Forms\unitMain.cpp">
+            <Form>formMain</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>Forms\unitMain.h</DependentOn>
+            <BuildOrder>13</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="Forms\unitOpenNew.cpp">
+            <Form>formOpenNew</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>Forms\unitOpenNew.h</DependentOn>
+            <BuildOrder>14</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="Forms\unitOptions.cpp">
+            <Form>formOptions</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>Forms\unitOptions.h</DependentOn>
+            <BuildOrder>15</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="Forms\unitPrintMessage.cpp">
             <Form>formPrintMessage</Form>
             <FormType>dfm</FormType>
-            <DependentOn>unitPrintMessage.h</DependentOn>
-            <BuildOrder>11</BuildOrder>
+            <DependentOn>Forms\unitPrintMessage.h</DependentOn>
+            <BuildOrder>16</BuildOrder>
         </CppCompile>
-        <CppCompile Include="unitSaveMessage.cpp">
+        <CppCompile Include="Forms\unitSaveMessage.cpp">
             <Form>formSaveMessage</Form>
             <FormType>dfm</FormType>
-            <DependentOn>unitSaveMessage.h</DependentOn>
-            <BuildOrder>10</BuildOrder>
+            <DependentOn>Forms\unitSaveMessage.h</DependentOn>
+            <BuildOrder>17</BuildOrder>
         </CppCompile>
-        <CppCompile Include="unitSetConfigFolder.cpp">
+        <CppCompile Include="Forms\unitSetConfigFolder.cpp">
             <Form>formSetConfigFolder</Form>
             <FormType>dfm</FormType>
-            <DependentOn>unitSetConfigFolder.h</DependentOn>
-            <BuildOrder>9</BuildOrder>
+            <DependentOn>Forms\unitSetConfigFolder.h</DependentOn>
+            <BuildOrder>18</BuildOrder>
         </CppCompile>
-        <CppCompile Include="unitSetPrinter.cpp">
+        <CppCompile Include="Forms\unitSetPrinter.cpp">
             <Form>formSetPrinter</Form>
             <FormType>dfm</FormType>
-            <DependentOn>unitSetPrinter.h</DependentOn>
-            <BuildOrder>8</BuildOrder>
+            <DependentOn>Forms\unitSetPrinter.h</DependentOn>
+            <BuildOrder>19</BuildOrder>
         </CppCompile>
-        <CppCompile Include="unitShowMessageCustom.cpp">
+        <CppCompile Include="Forms\unitShowMessageCustom.cpp">
             <Form>formShowMessageCustom</Form>
             <FormType>dfm</FormType>
-            <DependentOn>unitShowMessageCustom.h</DependentOn>
-            <BuildOrder>7</BuildOrder>
+            <DependentOn>Forms\unitShowMessageCustom.h</DependentOn>
+            <BuildOrder>20</BuildOrder>
         </CppCompile>
-        <CppCompile Include="utils.cpp">
-            <DependentOn>utils.h</DependentOn>
-            <BuildOrder>10</BuildOrder>
+        <CppCompile Include="main.cpp">
+            <BuildOrder>0</BuildOrder>
         </CppCompile>
-        <None Include="utils.hpp">
-            <BuildOrder>18</BuildOrder>
+        <CppCompile Include="utils\utils.cpp">
+            <DependentOn>utils\utils.h</DependentOn>
+            <BuildOrder>19</BuildOrder>
+        </CppCompile>
+        <None Include="utils\utils.hpp">
+            <BuildOrder>20</BuildOrder>
         </None>
-        <FormResources Include="unitSaveMessage.dfm"/>
-        <FormResources Include="unitPrintMessage.dfm"/>
-        <FormResources Include="unitOptions.dfm"/>
-        <FormResources Include="unitOpenNew.dfm"/>
-        <FormResources Include="unitMain.dfm"/>
-        <FormResources Include="unitShowMessageCustom.dfm"/>
-        <FormResources Include="unitSetPrinter.dfm"/>
-        <FormResources Include="unitSetConfigFolder.dfm"/>
-        <FormResources Include="unitLogo.dfm"/>
+        <None Include="XML\general\generalXMLDataBindings.h">
+            <BuildOrder>16</BuildOrder>
+        </None>
+        <None Include="XML\general\generalXMLDataBindings.hpp">
+            <BuildOrder>17</BuildOrder>
+        </None>
+        <CppCompile Include="XML\programData\programDataBindings.cpp">
+            <DependentOn>XML\programData\programDataBindings.h</DependentOn>
+            <BuildOrder>18</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="XML\programData\programDataSchema.cpp">
+            <DependentOn>XML\programData\programDataSchema.h</DependentOn>
+            <BuildOrder>19</BuildOrder>
+        </CppCompile>
+        <CppCompile Include="XML\receipt\receiptSchema.cpp">
+            <DependentOn>XML\receipt\receiptSchema.h</DependentOn>
+            <BuildOrder>20</BuildOrder>
+        </CppCompile>
         <FormResources Include="Forms\unitAdditionalOptions.dfm"/>
         <FormResources Include="Forms\unitClose.dfm"/>
         <FormResources Include="Forms\unitCorruptSettings.dfm"/>
+        <FormResources Include="Forms\unitLogo.dfm"/>
+        <FormResources Include="Forms\unitMain.dfm"/>
+        <FormResources Include="Forms\unitOpenNew.dfm"/>
+        <FormResources Include="Forms\unitOptions.dfm"/>
+        <FormResources Include="Forms\unitPrintMessage.dfm"/>
+        <FormResources Include="Forms\unitSaveMessage.dfm"/>
+        <FormResources Include="Forms\unitSetConfigFolder.dfm"/>
+        <FormResources Include="Forms\unitSetPrinter.dfm"/>
+        <FormResources Include="Forms\unitShowMessageCustom.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -283,7 +283,7 @@
                     <Excluded_Packages Name="$(BDSBIN)\bcbofficexp280.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
                 </Excluded_Packages>
                 <Source>
-                    <Source Name="MainSource">Frutzov uber račun.cpp</Source>
+                    <Source Name="MainSource">main.cpp</Source>
                 </Source>
             </CPlusPlusBuilder.Personality>
             <Deployment Version="3">
@@ -292,13 +292,13 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
-                    <Platform Name="OSX32">
+                <DeployFile Condition="'$(UsingDelphiRTL)'=='true'" LocalName="$(BDS)\bin\borlndmm.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(UsingDelphiRTL)'=='true'" LocalName="$(BDS)\bin\borlndmm.dll" Class="DependencyModule">
-                    <Platform Name="Win32">
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -312,9 +312,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName=".\Win32\Debug\Frutzov uber račun.tds" Configuration="Debug" Class="DebugSymbols">
+                <DeployFile LocalName=".\Win32\Debug\main.tds" Configuration="Debug" Class="DebugSymbols">
                     <Platform Name="Win32">
-                        <RemoteName>Frutzov_uber_račun.tds</RemoteName>
+                        <RemoteName>main.tds</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -338,15 +338,15 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName=".\Win32\Release\Frutzov uber račun.exe" Configuration="Release" Class="ProjectOutput">
+                <DeployFile LocalName=".\Win32\Release\main.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>Frutzov_uber_račun.exe</RemoteName>
+                        <RemoteName>main.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName=".\Win32\Debug\Frutzov uber račun.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName=".\Win32\Debug\main.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>Frutzov_uber_račun.exe</RemoteName>
+                        <RemoteName>main.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -1157,9 +1157,9 @@
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
