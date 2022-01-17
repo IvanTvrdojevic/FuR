@@ -149,6 +149,12 @@
             <DependentOn>Forms\unitAdditionalOptions.h</DependentOn>
             <BuildOrder>20</BuildOrder>
         </CppCompile>
+        <CppCompile Include="Forms\unitClose.cpp">
+            <Form>formClose</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>Forms\unitClose.h</DependentOn>
+            <BuildOrder>20</BuildOrder>
+        </CppCompile>
         <CppCompile Include="Frutzov uber račun.cpp">
             <BuildOrder>0</BuildOrder>
         </CppCompile>
@@ -169,12 +175,6 @@
         <CppCompile Include="receiptSchema.cpp">
             <DependentOn>receiptSchema.h</DependentOn>
             <BuildOrder>17</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="unitClose.cpp">
-            <Form>formClose</Form>
-            <FormType>dfm</FormType>
-            <DependentOn>unitClose.h</DependentOn>
-            <BuildOrder>16</BuildOrder>
         </CppCompile>
         <CppCompile Include="unitCorruptSettings.cpp">
             <Form>formCorruptSettings</Form>
@@ -252,9 +252,9 @@
         <FormResources Include="unitSetPrinter.dfm"/>
         <FormResources Include="unitSetConfigFolder.dfm"/>
         <FormResources Include="unitLogo.dfm"/>
-        <FormResources Include="unitCorruptSettings.dfm"/>
-        <FormResources Include="unitClose.dfm"/>
         <FormResources Include="Forms\unitAdditionalOptions.dfm"/>
+        <FormResources Include="unitCorruptSettings.dfm"/>
+        <FormResources Include="Forms\unitClose.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -292,13 +292,13 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(UsingDelphiRTL)'=='true'" LocalName="$(BDS)\bin\borlndmm.dll" Class="DependencyModule">
-                    <Platform Name="Win32">
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
-                    <Platform Name="OSX32">
+                <DeployFile Condition="'$(UsingDelphiRTL)'=='true'" LocalName="$(BDS)\bin\borlndmm.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -1158,8 +1158,8 @@
                 <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>

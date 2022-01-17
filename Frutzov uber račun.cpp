@@ -17,9 +17,9 @@ USEFORM("unitShowMessageCustom.cpp", formShowMessageCustom);
 USEFORM("unitSetPrinter.cpp", formSetPrinter);
 USEFORM("unitSetConfigFolder.cpp", formSetConfigFolder);
 USEFORM("unitLogo.cpp", formLogo);
-USEFORM("unitCorruptSettings.cpp", formCorruptSettings);
-USEFORM("unitClose.cpp", formClose);
 USEFORM("Forms\unitAdditionalOptions.cpp", formAdditionalOptions);
+USEFORM("unitCorruptSettings.cpp", formCorruptSettings);
+USEFORM("Forms\unitClose.cpp", formClose);
 //---------------------------------------------------------------------------
 int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 {
@@ -35,9 +35,9 @@ int WINAPI _tWinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 		Application->CreateForm(__classid(TformPrintMessage), &formPrintMessage);
 		Application->CreateForm(__classid(TformOptions), &formOptions);
 		Application->CreateForm(__classid(TformOpenNew), &formOpenNew);
-		Application->CreateForm(__classid(TformClose), &formClose);
 		Application->CreateForm(__classid(TformCorruptSettings), &formCorruptSettings);
 		Application->CreateForm(__classid(TformAdditionalOptions), &formAdditionalOptions);
+		Application->CreateForm(__classid(TformClose), &formClose);
 		Application->Run();
 	}
 	catch (Exception &exception)
