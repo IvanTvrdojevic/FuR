@@ -155,6 +155,12 @@
             <DependentOn>Forms\unitClose.h</DependentOn>
             <BuildOrder>20</BuildOrder>
         </CppCompile>
+        <CppCompile Include="Forms\unitCorruptSettings.cpp">
+            <Form>formCorruptSettings</Form>
+            <FormType>dfm</FormType>
+            <DependentOn>Forms\unitCorruptSettings.h</DependentOn>
+            <BuildOrder>20</BuildOrder>
+        </CppCompile>
         <CppCompile Include="Frutzov uber račun.cpp">
             <BuildOrder>0</BuildOrder>
         </CppCompile>
@@ -175,12 +181,6 @@
         <CppCompile Include="receiptSchema.cpp">
             <DependentOn>receiptSchema.h</DependentOn>
             <BuildOrder>17</BuildOrder>
-        </CppCompile>
-        <CppCompile Include="unitCorruptSettings.cpp">
-            <Form>formCorruptSettings</Form>
-            <FormType>dfm</FormType>
-            <DependentOn>unitCorruptSettings.h</DependentOn>
-            <BuildOrder>20</BuildOrder>
         </CppCompile>
         <CppCompile Include="unitLogo.cpp">
             <Form>formLogo</Form>
@@ -253,8 +253,8 @@
         <FormResources Include="unitSetConfigFolder.dfm"/>
         <FormResources Include="unitLogo.dfm"/>
         <FormResources Include="Forms\unitAdditionalOptions.dfm"/>
-        <FormResources Include="unitCorruptSettings.dfm"/>
         <FormResources Include="Forms\unitClose.dfm"/>
+        <FormResources Include="Forms\unitCorruptSettings.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
