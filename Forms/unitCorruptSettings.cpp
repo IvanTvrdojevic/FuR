@@ -24,7 +24,7 @@ void __fastcall TformCorruptSettings::Button2Click(TObject *Sender)
 		config.hInstance                = NULL;
 
 		config.pszMainIcon              = TD_WARNING_ICON;
-		config.pszWindowTitle           = L"Upozorenje!";
+		config.pszWindowTitle           = L"Upozorenje!!!";
 		config.pszMainInstruction       = L"Naslov";
 		config.pszContent               = L"Poruka";
 
