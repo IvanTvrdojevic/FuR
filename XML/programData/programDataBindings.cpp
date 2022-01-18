@@ -169,10 +169,7 @@ void TXMLBinding_programData::saveToFile(String fileName)
 	XMLDocument->SaveToXML(xmlStr);
 	xmlStr = FormatXMLData(xmlStr);
 
-	TStringList *list = new TStringList;
-	list->Add("<?xml version=\"1.0\"?>");
-	list->Add(xmlStr);
-	list->SaveToFile(fileName, TEncoding::UTF8);
+
 }
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //															     OPEN/SAVE LOGIC
