@@ -5,6 +5,8 @@
 //******************************************************************************
 // DEFINES
 //******************************************************************************
+#define PROGRAM_NAME_OFFICIAL "FISKALNI RACUN"
+
 #define PROGRAM_FOLDER "Frutzov Uber Racun"
 #define PROGRAM_DATA_FILENAME "programData.xml"
 

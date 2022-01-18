@@ -1,4 +1,4 @@
 **/__*
-**/Debug
-**/Release
+**/Win32
 *.local
+*.bak

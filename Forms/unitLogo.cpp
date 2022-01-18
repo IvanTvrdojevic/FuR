@@ -75,7 +75,11 @@ void __fastcall TformLogo::FormShow(TObject *Sender)
 	setupFormVisuals(formAdditionalOptions);
 	setupFormVisuals(formShowMessageCustom);
 
+#ifdef BUILD_OFFICIAL
+	formMain->Caption = PROGRAM_NAME_OFFICIAL;
+#else
 	formMain->Caption = "FRUTZOV UBER RACUN";
+#endif
 	formMain->Color =  clBtnFace;
 
 	bool openSettings = programData.openFromFile(formSetConfigFolder->getProgramDataFileName());
