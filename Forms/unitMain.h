@@ -158,18 +158,17 @@ private:	// User declarations
 	void saveFormProgramDataFields();
 	void updateFieldsFromReceipt(_di_IXMLreceiptType receipt);
 	void openReceipt();
-	void saveReceiptToFile(AnsiString fileName);
 	void saveReceipt();
 
 public:		// User declarations
-	wchar_t outFileName[800];
+	TCHAR outFileName[800];
 	bool receiptSaved = false;
 	bool enableDbgOut = false;
 
 	__fastcall TformMain(TComponent* Owner);
 	void makeNew();
 	void doThePrint();
-	AnsiString getReceiptFileName();
+	String getReceiptFileName();
 };
 //******************************************************************************
 

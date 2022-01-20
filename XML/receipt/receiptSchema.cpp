@@ -1,13 +1,12 @@
 
-// ******************************************************************************************************************* //
-//                                                                                                                   
-//                                                 XML Data Binding                                                  
-//                                                                                                                   
-//         Generated on: 6.1.2022. 23:00:01                                                                          
-//       Generated from: C:\Users\User\Desktop\All\Programiranje\Racun al ovaj nemoj obrisat\Res\receiptSchema.xml   
-//   Settings stored in: C:\Users\User\Desktop\All\Programiranje\Racun al ovaj nemoj obrisat\Res\receiptSchema.xdb   
-//                                                                                                                   
-// ******************************************************************************************************************* //
+// *************************************************************************************** //
+//                                                                                       
+//                                   XML Data Binding                                    
+//                                                                                       
+//         Generated on: 1/20/2022 9:46:58 PM                                            
+//       Generated from: E:\00_WORK\99_RAD\00_CPP\00_FUR\XML\receipt\receiptSchema.xml   
+//                                                                                       
+// *************************************************************************************** //
 
 #include <System.hpp>
 #pragma hdrstop
@@ -51,22 +50,22 @@ void __fastcall TXMLreceiptType::Set_number(int Value)
   GetChildNodes()->Nodes[System::UnicodeString("number")]->NodeValue = Value;
 };
 
-System::UnicodeString __fastcall TXMLreceiptType::Get_serviceDate()
+double __fastcall TXMLreceiptType::Get_serviceDate()
 {
-  return GetChildNodes()->Nodes[System::UnicodeString("serviceDate")]->Text;
+  return XmlStrToFloatExt(GetChildNodes()->Nodes[System::UnicodeString("serviceDate")]->Text);
 };
 
-void __fastcall TXMLreceiptType::Set_serviceDate(System::UnicodeString Value)
+void __fastcall TXMLreceiptType::Set_serviceDate(double Value)
 {
   GetChildNodes()->Nodes[System::UnicodeString("serviceDate")]->NodeValue = Value;
 };
 
-System::UnicodeString __fastcall TXMLreceiptType::Get_issueDate()
+double __fastcall TXMLreceiptType::Get_issueDate()
 {
-  return GetChildNodes()->Nodes[System::UnicodeString("issueDate")]->Text;
+  return XmlStrToFloatExt(GetChildNodes()->Nodes[System::UnicodeString("issueDate")]->Text);
 };
 
-void __fastcall TXMLreceiptType::Set_issueDate(System::UnicodeString Value)
+void __fastcall TXMLreceiptType::Set_issueDate(double Value)
 {
   GetChildNodes()->Nodes[System::UnicodeString("issueDate")]->NodeValue = Value;
 };
@@ -81,12 +80,12 @@ void __fastcall TXMLreceiptType::Set_issueTime(System::UnicodeString Value)
   GetChildNodes()->Nodes[System::UnicodeString("issueTime")]->NodeValue = Value;
 };
 
-System::UnicodeString __fastcall TXMLreceiptType::Get_arrivalDate()
+double __fastcall TXMLreceiptType::Get_arrivalDate()
 {
-  return GetChildNodes()->Nodes[System::UnicodeString("arrivalDate")]->Text;
+  return XmlStrToFloatExt(GetChildNodes()->Nodes[System::UnicodeString("arrivalDate")]->Text);
 };
 
-void __fastcall TXMLreceiptType::Set_arrivalDate(System::UnicodeString Value)
+void __fastcall TXMLreceiptType::Set_arrivalDate(double Value)
 {
   GetChildNodes()->Nodes[System::UnicodeString("arrivalDate")]->NodeValue = Value;
 };
@@ -121,62 +120,62 @@ void __fastcall TXMLreceiptType::Set_articleID(System::UnicodeString Value)
   GetChildNodes()->Nodes[System::UnicodeString("articleID")]->NodeValue = Value;
 };
 
-int __fastcall TXMLreceiptType::Get_articleType()
+System::UnicodeString __fastcall TXMLreceiptType::Get_articleType()
 {
-  return GetChildNodes()->Nodes[System::UnicodeString("articleType")]->NodeValue.operator int();
+  return GetChildNodes()->Nodes[System::UnicodeString("articleType")]->Text;
 };
 
-void __fastcall TXMLreceiptType::Set_articleType(int Value)
+void __fastcall TXMLreceiptType::Set_articleType(System::UnicodeString Value)
 {
   GetChildNodes()->Nodes[System::UnicodeString("articleType")]->NodeValue = Value;
 };
 
-double __fastcall TXMLreceiptType::Get_quantity()
+System::UnicodeString __fastcall TXMLreceiptType::Get_quantity()
 {
-  return XmlStrToFloatExt(GetChildNodes()->Nodes[System::UnicodeString("quantity")]->Text);
+  return GetChildNodes()->Nodes[System::UnicodeString("quantity")]->Text;
 };
 
-void __fastcall TXMLreceiptType::Set_quantity(double Value)
+void __fastcall TXMLreceiptType::Set_quantity(System::UnicodeString Value)
 {
   GetChildNodes()->Nodes[System::UnicodeString("quantity")]->NodeValue = Value;
 };
 
-int __fastcall TXMLreceiptType::Get_measureUnit()
+System::UnicodeString __fastcall TXMLreceiptType::Get_measureUnit()
 {
-  return GetChildNodes()->Nodes[System::UnicodeString("measureUnit")]->NodeValue.operator int();
+  return GetChildNodes()->Nodes[System::UnicodeString("measureUnit")]->Text;
 };
 
-void __fastcall TXMLreceiptType::Set_measureUnit(int Value)
+void __fastcall TXMLreceiptType::Set_measureUnit(System::UnicodeString Value)
 {
   GetChildNodes()->Nodes[System::UnicodeString("measureUnit")]->NodeValue = Value;
 };
 
-double __fastcall TXMLreceiptType::Get_wholesalePrice()
+System::UnicodeString __fastcall TXMLreceiptType::Get_wholesalePrice()
 {
-  return XmlStrToFloatExt(GetChildNodes()->Nodes[System::UnicodeString("wholesalePrice")]->Text);
+  return GetChildNodes()->Nodes[System::UnicodeString("wholesalePrice")]->Text;
 };
 
-void __fastcall TXMLreceiptType::Set_wholesalePrice(double Value)
+void __fastcall TXMLreceiptType::Set_wholesalePrice(System::UnicodeString Value)
 {
   GetChildNodes()->Nodes[System::UnicodeString("wholesalePrice")]->NodeValue = Value;
 };
 
-double __fastcall TXMLreceiptType::Get_wholesaleDiscount()
+System::UnicodeString __fastcall TXMLreceiptType::Get_wholesaleDiscount()
 {
-  return XmlStrToFloatExt(GetChildNodes()->Nodes[System::UnicodeString("wholesaleDiscount")]->Text);
+  return GetChildNodes()->Nodes[System::UnicodeString("wholesaleDiscount")]->Text;
 };
 
-void __fastcall TXMLreceiptType::Set_wholesaleDiscount(double Value)
+void __fastcall TXMLreceiptType::Set_wholesaleDiscount(System::UnicodeString Value)
 {
   GetChildNodes()->Nodes[System::UnicodeString("wholesaleDiscount")]->NodeValue = Value;
 };
 
-double __fastcall TXMLreceiptType::Get_pdv()
+System::UnicodeString __fastcall TXMLreceiptType::Get_pdv()
 {
-  return XmlStrToFloatExt(GetChildNodes()->Nodes[System::UnicodeString("pdv")]->Text);
+  return GetChildNodes()->Nodes[System::UnicodeString("pdv")]->Text;
 };
 
-void __fastcall TXMLreceiptType::Set_pdv(double Value)
+void __fastcall TXMLreceiptType::Set_pdv(System::UnicodeString Value)
 {
   GetChildNodes()->Nodes[System::UnicodeString("pdv")]->NodeValue = Value;
 };

@@ -1,5 +1,5 @@
-#ifndef commonH
-#define commonH
+#ifndef projectGlobalsH
+#define projectGlobalsH
 //------------------------------------------------------------------------------
 
 //******************************************************************************
@@ -42,6 +42,10 @@
 #include <vcl.h>
 #pragma hrdstop
 
+#include <vector>
+
+#include "utils.h"
+
 #include "programDataBindings.h"
 //******************************************************************************
 
@@ -52,11 +56,28 @@
 extern TXMLBinding_programData programData;
 //******************************************************************************
 
-
 //******************************************************************************
 // METHODS
 //******************************************************************************
+void showMessageCustom(RADstring message, int fontSize, TColor fontColor);
+void showMessageCustom(int message, int fontSize, TColor fontColor);
+
+template <typename T_MSG>
+void showMessageCustomWrp(T_MSG message);
+
+template <typename T_MSG>
+void DBG_MSG(T_MSG message);
+template <typename T_MSG>
+void DBG_MSG(std::vector<T_MSG> messages);
+
 void setupFormVisuals(TForm* form);
+//******************************************************************************
+
+
+//******************************************************************************
+// HPP IMPLEMENTATIONS FILES
+//******************************************************************************
+#include "projectGlobals.hpp"
 //******************************************************************************
 
 //------------------------------------------------------------------------------

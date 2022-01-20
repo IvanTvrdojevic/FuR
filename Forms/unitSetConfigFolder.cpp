@@ -6,12 +6,12 @@
 
 #include <System.IOUtils.hpp>
 
-#include "common.h"
-#include "utils.h"
+#include "projectGlobals.h"
 
 #include "unitLogo.h"
 #include "unitMain.h"
 #include "unitOptions.h"
+
 #include "unitSetConfigFolder.h"
 //******************************************************************************
 
@@ -80,7 +80,7 @@ void __fastcall TformSetConfigFolder::buttonOkayClick(TObject *Sender)
 		programData.openFromFile(getProgramDataFileName());
 	}
 	catch(...){
-		showMessageCustom("Nije moguce kreirati konfiguracijsku datoteku! Odaberite drugi direktorij!");
+		showMessageCustomWrp("Nije moguce kreirati konfiguracijsku datoteku! Odaberite drugi direktorij!");
 		return;
 	}
 

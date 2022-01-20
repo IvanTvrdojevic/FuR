@@ -4,12 +4,11 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include <vector>
-
-#include "utils.h"
+#include "projectGlobals.h"
 
 #include "unitMain.h"
 #include "unitOptions.h"
+
 #include "unitPrintMessage.h"
 //******************************************************************************
 
@@ -37,7 +36,7 @@ __fastcall TformPrintMessage::TformPrintMessage(TComponent* Owner)
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 struct handleData {
 	unsigned long processId;
-	vector<HWND> processWindowHandles;
+	std::vector<HWND> processWindowHandles;
 };
 
 BOOL isMainWindow(HWND handle)
@@ -58,7 +57,7 @@ BOOL CALLBACK enumWindowsCallback(HWND handle, LPARAM lParam)
 	return TRUE;
 }
 
-vector<HWND> findProcessWindows(unsigned long processId)
+std::vector<HWND> findProcessWindows(unsigned long processId)
 {
 	handleData data;
 	data.processId = processId;
@@ -136,8 +135,8 @@ void TformPrintMessage::changeVisibility(TLabel* label, TButton* button){
 void __fastcall TformPrintMessage::Button2Click(TObject *Sender)
 {
 	// THIS LAUNCHES Microsoft Edge as pdf reader - not very portable!!!! Check later!!!
-	wstring exeCmd = L"msedge";
-	wstring paramCmd = L"\"" + wstring(formMain->outFileName) + L"\"";
+	STLstring exeCmd = L"msedge";
+	STLstring paramCmd = L"\"" + STLstring(formMain->outFileName) + L"\"";
 
     // POOR MANS EXECUTE PROCESS
 	ShellExecute(GetDesktopWindow(), L"open", exeCmd.c_str(), paramCmd.c_str(), NULL, SW_SHOWMAXIMIZED);
@@ -170,11 +169,7 @@ void __fastcall TformPrintMessage::FormShow(TObject *Sender)
 {
 	labelPrintMessage1->Caption = "Broj kopija: " + IntToStr(formMain->spinEditCopies->Value);
 
-	AnsiString tmpAstr = formOptions->comboBoxPrinters->Text;
-	string tmpStr = string(tmpAstr.c_str(), tmpAstr.Length());
-	wstring wstringPrinterName = wstring(tmpStr.begin(), tmpStr.end());
-
-	if(IsPrinterOnline(wstringPrinterName)){
+	if(IsPrinterOnline(formOptions->comboBoxPrinters->Text)){
 		labelPrintMessage2->Caption = "Printer spojen, printanje u tijeku!";
 	}else{
 		labelPrintMessage2->Caption = "Printanje će započeti kad spojite printer!";

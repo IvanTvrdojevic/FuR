@@ -1,13 +1,13 @@
 
-// *********************************************************************************** //
-//                                                                                   
-//                                 XML Data Binding                                  
-//                                                                                   
-//         Generated on: 1/11/2022 10:05:40 PM                                       
-//       Generated from: E:\00_WORK\99_RAD\00_CPP\00_FUR\Res\programDataSchema.xml   
-//   Settings stored in: E:\00_WORK\99_RAD\00_CPP\00_FUR\Res\programDataSchema.xdb   
-//                                                                                   
-// *********************************************************************************** //
+// *********************************************************************************************** //
+//                                                                                               
+//                                       XML Data Binding                                        
+//                                                                                               
+//         Generated on: 1/20/2022 9:48:38 PM                                                    
+//       Generated from: E:\00_WORK\99_RAD\00_CPP\00_FUR\XML\programData\programDataSchema.xml   
+//   Settings stored in: E:\00_WORK\99_RAD\00_CPP\00_FUR\XML\programData\programDataSchema.xdb   
+//                                                                                               
+// *********************************************************************************************** //
 
 #ifndef   programDataSchemaH
 #define   programDataSchemaH
@@ -32,7 +32,7 @@ typedef System::DelphiInterface<IXMLarticleTypesType> _di_IXMLarticleTypesType;
 
 // IXMLprogramDataType 
 
-__interface INTERFACE_UUID("{EAF02059-1C59-46BB-BB05-17DE9FA3262D}") IXMLprogramDataType : public Xml::Xmlintf::IXMLNode
+__interface INTERFACE_UUID("{971A3D06-8EB7-44EB-95E5-232E8E71F8AF}") IXMLprogramDataType : public Xml::Xmlintf::IXMLNode
 {
 public:
   // Property Accessors 
@@ -69,7 +69,7 @@ public:
 
 // IXMLOIBsType 
 
-__interface INTERFACE_UUID("{487013D0-5011-4730-BC6A-88FDF478754A}") IXMLOIBsType : public Xml::Xmlintf::IXMLNodeCollection
+__interface INTERFACE_UUID("{51BE9A13-62B1-4AEF-98AE-FFFF79997B32}") IXMLOIBsType : public Xml::Xmlintf::IXMLNodeCollection
 {
 public:
 public:
@@ -83,7 +83,7 @@ public:
 
 // IXMLarticleTypesType 
 
-__interface INTERFACE_UUID("{D7FEF5CF-8C99-4626-8C87-B7FD4A644C0C}") IXMLarticleTypesType : public Xml::Xmlintf::IXMLNodeCollection
+__interface INTERFACE_UUID("{531AD3E3-FEA5-4ED6-A366-5D1DE07DC623}") IXMLarticleTypesType : public Xml::Xmlintf::IXMLNodeCollection
 {
 public:
 public:

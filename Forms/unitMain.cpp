@@ -6,22 +6,17 @@
 
 #include <System.IOUtils.hpp>
 
-#include "utils.h"
-#include "common.h"
+#include "projectGlobals.h"
 
-#include "unitMain.h"               //Main
+#include "unitOpenNew.h"
+#include "unitClose.h"
+#include "unitOptions.h"
+#include "unitPrintMessage.h"
+#include "unitSetPrinter.h"
+#include "unitSetConfigFolder.h"
+#include "unitSaveMessage.h"
 
-#include "unitOpenNew.h"            //OpenNew
-#include "unitLogo.h"               //Logo
-#include "unitClose.h"              //Close
-#include "unitOptions.h"            //Options
-#include "unitPrintMessage.h"       //PrintMessage
-#include "unitSetPrinter.h"         //SetPrinter
-#include "unitSetConfigFolder.h"    //SetConfigFolder
-#include "unitSaveMessage.h"        //SaveMessage
-#include "unitShowMessageCustom.h"  //ShowMessageCustom
-
-using namespace std;
+#include "unitMain.h"
 //******************************************************************************
 
 
@@ -169,7 +164,7 @@ void TformMain::validateDateColor(){
 
 void TformMain::validateCard(){
 	validatedCard = true;
-	AnsiString card = editCard->Text;
+	RADstring card = editCard->Text;
 
 	if(card[1] == DEBUG_BEGIN[1])
 		return;
@@ -186,7 +181,7 @@ void TformMain::validateOib(){
 		showMessageCustomWrp("Pogreška pri unosu OIB-a: OIB se sastoji od 11 znamenki!");
 		validatedOib = false;
 	}
-	AnsiString oib = comboBoxOIBs->Text;
+	RADstring oib = comboBoxOIBs->Text;
 	for(int i = 1; i < comboBoxOIBs->Text.Length() + 1; i++){
 		if (oib[i] < 48 || oib[i] > 57) {
 			showMessageCustomWrp("Pogreška pri unosu OIB-a: OIB sadrzava samo brojeve!");
@@ -324,18 +319,14 @@ void TformMain::printReceipt(){
 // Device printing
 void TformMain::printToFile(){
 	// get receipt path
-	AnsiString receiptPrintFileName = formOptions->getReceiptFileNameWitouthExt() + ".pdf";
-
-	// convert ansistring to wstring
-	string tmpStr = string(receiptPrintFileName.c_str(), receiptPrintFileName.Length());
-	wstring tmpWStr = wstring(tmpStr.begin(), tmpStr.end());
+	RADstring receiptPrintFileName = formOptions->getReceiptFileNameWitouthExt() + ".pdf";
 
 	// convert wstring to wchar_t array
-	wcscpy(outFileName, tmpWStr.c_str());
+	wcscpy(outFileName, strConvert(receiptPrintFileName).c_str());
 
 	// set print filename
 	THandle DeviceMode;
-	wchar_t Device[80], Driver[80], Port[80];
+	TCHAR Device[80], Driver[80], Port[80];
 	Printer()->PrinterIndex = Printer()->Printers->IndexOf("Microsoft Print to PDF");
 	Printer()->GetPrinter(Device, Driver, Port, DeviceMode);
 	Printer()->SetPrinter(Device, Driver, outFileName, DeviceMode);
@@ -389,7 +380,7 @@ void TformMain::saveFormProgramDataFields(){
 // RECEIPT LOGIC
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-AnsiString TformMain::getReceiptFileName(){
+RADstring TformMain::getReceiptFileName(){
 	return formOptions->getReceiptFileNameWitouthExt() + RECEIPT_EXTENSION;
 }
 
@@ -404,9 +395,9 @@ void TformMain::updateFieldsFromReceipt(_di_IXMLreceiptType receipt){
 	editCard->Text = receipt->card;
 	comboBoxOIBs->Text = receipt->OIB;
 	editArticleID->Text = receipt->articleID;
-	comboBoxArticleTypes->ItemIndex = receipt->articleType;
+	comboBoxArticleTypes->Text = receipt->articleType;
 	editQuantity->Text = receipt->quantity;
-	comboBoxMeasureUnit->ItemIndex = receipt->measureUnit;
+	comboBoxMeasureUnit->Text = receipt->measureUnit;
 	editWholesalePrice->Text = receipt->wholesalePrice;
 	editWholesaleDiscount->Text = receipt->wholesaleDiscount;
 	editPdv->Text = receipt->pdv;
@@ -414,21 +405,7 @@ void TformMain::updateFieldsFromReceipt(_di_IXMLreceiptType receipt){
 
 void TformMain::openReceipt(){
 	_di_IXMLreceiptType receipt = Loadreceipt(FileOpenDialog1->FileName);
-
-	spinEditReceiptNumber->Value = receipt->number;
-	datePickerServiceDate->Date = receipt->serviceDate;
-	datePickerIssueDate->Date = receipt->issueDate;
-	timePickerIssueTime->Time = timePickerIssueTime->Time;
-	datePickerArrivalDate->Date = receipt->arrivalDate;
-	editCard->Text = receipt->card;
-	comboBoxOIBs->Text = receipt->OIB;
-	editArticleID->Text = receipt->articleID;
-	comboBoxArticleTypes->ItemIndex = receipt->articleType;
-	editQuantity->Text = receipt->quantity;
-	comboBoxMeasureUnit->ItemIndex = receipt->measureUnit;
-	editWholesalePrice->Text = receipt->wholesalePrice;
-	editWholesaleDiscount->Text = receipt->wholesaleDiscount;
-	editPdv->Text = receipt->pdv;
+	updateFieldsFromReceipt(receipt);
 }
 //------------------------------------------------------------------------------
 
@@ -445,22 +422,16 @@ void TformMain::saveReceipt(){
 	receipt->card = editCard->Text;
 	receipt->OIB = comboBoxOIBs->Text;
 	receipt->articleID = editArticleID->Text;
-	receipt->articleType = comboBoxArticleTypes->ItemIndex;
+	receipt->articleType = comboBoxArticleTypes->Text;
 	receipt->quantity = editQuantity->Text.ToDouble();
-	receipt->measureUnit = comboBoxMeasureUnit->ItemIndex;
+	receipt->measureUnit = comboBoxMeasureUnit->Text;
 	receipt->wholesalePrice = editWholesalePrice->Text.ToDouble();
 	receipt->wholesaleDiscount = editWholesaleDiscount->Text.ToDouble();
 	receipt->pdv = editPdv->Text.ToDouble();
 
-	saveReceiptToFile(getReceiptFileName());
+	XMLDocReceipt->SaveToFile(getReceiptFileName());
 	receiptSaved = True;
 }
-
-void TformMain::saveReceiptToFile(AnsiString fileName)
-{
-	XMLDocReceipt->SaveToFile(fileName);
-}
-
 //------------------------------------------------------------------------------
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

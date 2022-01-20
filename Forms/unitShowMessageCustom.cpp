@@ -4,7 +4,7 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include "common.h"
+#include "projectGlobals.h"
 
 #include "unitShowMessageCustom.h"
 //******************************************************************************

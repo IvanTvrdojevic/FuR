@@ -6,7 +6,7 @@
         <AppType>Application</AppType>
         <MainSource>main.cpp</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Official</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
     </PropertyGroup>
@@ -75,8 +75,8 @@
         <Icon_MainIcon>$(BDS)\bin\cbuilder_PROJECTICON.ico</Icon_MainIcon>
         <UWP_CppLogo44>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_44.png</UWP_CppLogo44>
         <UWP_CppLogo150>$(BDS)\bin\Artwork\Windows\UWP\cppreg_UwpDefault_150.png</UWP_CppLogo150>
-        <IncludePath>XML\receipt\;XML\programData\;XML\general\;utils\;Forms\;..\..\..\..\Desktop\Racun al ovaj nemoj obrisat\;$(IncludePath)</IncludePath>
-        <ILINK_LibraryPath>XML\receipt\;XML\programData\;XML\general\;utils\;Forms\;..\..\..\..\Desktop\Racun al ovaj nemoj obrisat\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
+        <IncludePath>projectGlobals\;XML\receipt\;XML\programData\;XML\general\;utils\;Forms\;..\..\..\..\Desktop\Racun al ovaj nemoj obrisat\;$(IncludePath)</IncludePath>
+        <ILINK_LibraryPath>projectGlobals\;XML\receipt\;XML\programData\;XML\general\;utils\;Forms\;..\..\..\..\Desktop\Racun al ovaj nemoj obrisat\;$(ILINK_LibraryPath)</ILINK_LibraryPath>
         <SanitizedProjectName>main</SanitizedProjectName>
         <VerInfo_Locale>1050</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
@@ -166,10 +166,6 @@
         <BCC_Defines>BUILD_OFFICIAL;$(BCC_Defines)</BCC_Defines>
     </PropertyGroup>
     <ItemGroup>
-        <CppCompile Include="common.cpp">
-            <DependentOn>common.h</DependentOn>
-            <BuildOrder>20</BuildOrder>
-        </CppCompile>
         <CppCompile Include="Forms\unitAdditionalOptions.cpp">
             <Form>formAdditionalOptions</Form>
             <FormType>dfm</FormType>
@@ -198,7 +194,7 @@
             <Form>formMain</Form>
             <FormType>dfm</FormType>
             <DependentOn>Forms\unitMain.h</DependentOn>
-            <BuildOrder>13</BuildOrder>
+            <BuildOrder>21</BuildOrder>
         </CppCompile>
         <CppCompile Include="Forms\unitOpenNew.cpp">
             <Form>formOpenNew</Form>
@@ -245,6 +241,13 @@
         <CppCompile Include="main.cpp">
             <BuildOrder>0</BuildOrder>
         </CppCompile>
+        <CppCompile Include="projectGlobals\projectGlobals.cpp">
+            <DependentOn>projectGlobals\projectGlobals.h</DependentOn>
+            <BuildOrder>20</BuildOrder>
+        </CppCompile>
+        <None Include="projectGlobals\projectGlobals.hpp">
+            <BuildOrder>21</BuildOrder>
+        </None>
         <CppCompile Include="utils\utils.cpp">
             <DependentOn>utils\utils.h</DependentOn>
             <BuildOrder>19</BuildOrder>
@@ -264,24 +267,24 @@
         </CppCompile>
         <CppCompile Include="XML\programData\programDataSchema.cpp">
             <DependentOn>XML\programData\programDataSchema.h</DependentOn>
-            <BuildOrder>19</BuildOrder>
+            <BuildOrder>21</BuildOrder>
         </CppCompile>
         <CppCompile Include="XML\receipt\receiptSchema.cpp">
             <DependentOn>XML\receipt\receiptSchema.h</DependentOn>
-            <BuildOrder>20</BuildOrder>
+            <BuildOrder>22</BuildOrder>
         </CppCompile>
         <FormResources Include="Forms\unitShowMessageCustom.dfm"/>
-        <FormResources Include="Forms\unitSetPrinter.dfm"/>
-        <FormResources Include="Forms\unitSetConfigFolder.dfm"/>
+        <FormResources Include="Forms\unitMain.dfm"/>
         <FormResources Include="Forms\unitLogo.dfm"/>
         <FormResources Include="Forms\unitCorruptSettings.dfm"/>
         <FormResources Include="Forms\unitClose.dfm"/>
         <FormResources Include="Forms\unitAdditionalOptions.dfm"/>
+        <FormResources Include="Forms\unitOpenNew.dfm"/>
+        <FormResources Include="Forms\unitSetPrinter.dfm"/>
+        <FormResources Include="Forms\unitSetConfigFolder.dfm"/>
         <FormResources Include="Forms\unitSaveMessage.dfm"/>
         <FormResources Include="Forms\unitPrintMessage.dfm"/>
         <FormResources Include="Forms\unitOptions.dfm"/>
-        <FormResources Include="Forms\unitOpenNew.dfm"/>
-        <FormResources Include="Forms\unitMain.dfm"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -1189,10 +1192,10 @@
                 </DeployClass>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>

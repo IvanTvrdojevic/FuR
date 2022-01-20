@@ -5,11 +5,10 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include "common.h"
+#include "projectGlobals.h"
 
 #include "unitMain.h"
 #include "unitOpenNew.h"
-#include "unitLogo.h"
 #include "unitClose.h"
 #include "unitOptions.h"
 #include "unitPrintMessage.h"
@@ -19,6 +18,8 @@
 #include "unitAdditionalOptions.h"
 #include "unitShowMessageCustom.h"
 #include "unitCorruptSettings.h"
+
+#include "unitLogo.h"
 //******************************************************************************
 
 

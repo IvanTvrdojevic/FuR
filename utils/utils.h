@@ -9,48 +9,43 @@
 #pragma hrdstop
 
 #include <vector>
+//******************************************************************************
 
-#include "common.h"
 
-#include "unitMain.h"
-#include "unitAdditionalOptions.h"
-
-using namespace std;
+//******************************************************************************
+// TYPES
+//******************************************************************************
+typedef std::basic_string<TCHAR> STLstring;
+typedef String RADstring;
 //******************************************************************************
 
 
 //******************************************************************************
 // METHODS
 //******************************************************************************
-bool IsPrinterOnline(wstring printerName);
+STLstring strConvert(RADstring inString);
+RADstring strConvert(STLstring inString);
+RADstring removeWhitespacesFromString(RADstring const& input);
+
+RADstring getErrorMessage(DWORD errorMessageID);
+RADstring getErrorMessage(HRESULT errorMessageID);
+RADstring getErrorMessageFromShellExecute(HINSTANCE errorMessageID);
 
 template <typename T_FIELD>
-void addUniqueItemToItemsListField(String item, T_FIELD* itemsListField);
+void addUniqueItemToItemsListField(RADstring item, T_FIELD* itemsListField);
 
-void addUniqueItemToComboBox(TComboBox* comboBox, String item = "");
+void addUniqueItemToComboBox(TComboBox* comboBox, RADstring item = "");
 
-String removeWhitespacesFromString(String const& input);
+bool IsPrinterOnline(RADstring printerName);
+//******************************************************************************
 
-String getErrorMessage(DWORD errorMessageID);
-String getErrorMessageFromShellExecute(HINSTANCE errorMessageID);
-
-void showMessageCustom(String message, 	int fontSize = DEFAULT_MESSAGE_FONT_SIZE,
-										TColor fontColor = DEFAULT_MESSAGE_FONT_COLOR);
-
-void showMessageCustom(int message, int fontSize = DEFAULT_MESSAGE_FONT_SIZE,
-									TColor fontColor = DEFAULT_MESSAGE_FONT_COLOR);
-
-template <typename T_MSG>
-void showMessageCustomWrp(T_MSG message);
-
-template <typename T_MSG>
-void DBG_MSG(T_MSG message);
-
-template <typename T_MSG>
-void DBG_MSG(vector<T_MSG> messages);
 
 //******************************************************************************
+// HPP IMPLEMENTATIONS FILES
+//******************************************************************************
 #include "utils.hpp"
+//******************************************************************************
 
 //------------------------------------------------------------------------------
 #endif
+

@@ -1,8 +1,9 @@
 //******************************************************************************
 // INCLUDES
 //******************************************************************************
-#include "common.h"
 #include "generalXMLDataBindings.h"
+
+#include "projectGlobals.h"
 
 #include "unitMain.h"
 #include "unitOptions.h"

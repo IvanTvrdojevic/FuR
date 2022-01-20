@@ -4,12 +4,9 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include "programDataBindings.h"
-#include "common.h"
+#include "projectGlobals.h"
 
-#include "unitMain.h"
 #include "unitAdditionalOptions.h"
-#include "unitSetConfigFolder.h"
 //******************************************************************************
 
 

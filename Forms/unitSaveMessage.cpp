@@ -4,10 +4,11 @@
 #include <vcl.h>
 #pragma hdrstop
 
-#include "unitMain.h"
-#include "unitSaveMessage.h"
+#include "projectGlobals.h"
 
-#include "utils.h"
+#include "unitMain.h"
+
+#include "unitSaveMessage.h"
 //******************************************************************************
 
 

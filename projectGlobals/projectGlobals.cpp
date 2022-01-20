@@ -1,9 +1,9 @@
 //******************************************************************************
 // INCLUDES
 //******************************************************************************
-#include "unitSetConfigFolder.h"
+#include "unitShowMessageCustom.h"
 
-#include "common.h"
+#include "projectGlobals.h"
 //******************************************************************************
 
 
@@ -17,6 +17,18 @@ TXMLBinding_programData programData;
 //******************************************************************************
 // METHODS
 //******************************************************************************
+void showMessageCustom(RADstring message, int fontSize, TColor fontColor){
+	formShowMessageCustom->labelCustomMessage->Caption = message;
+	formShowMessageCustom->labelCustomMessage->Font->Size = fontSize;
+	formShowMessageCustom->labelCustomMessage->Font->Color = fontColor;
+
+	formShowMessageCustom->ShowModal();
+}
+
+void showMessageCustom(int message, int fontSize, TColor fontColor){
+	showMessageCustom(IntToStr(message), fontSize, fontColor);
+}
+
 void setupFormVisuals(TForm* form)
 {
 	form->AutoSize = True;
@@ -31,4 +43,3 @@ void setupFormVisuals(TForm* form)
 	form->Position = poScreenCenter;
 }
 //******************************************************************************
-
