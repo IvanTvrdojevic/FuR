@@ -6,7 +6,7 @@
         <AppType>Application</AppType>
         <MainSource>main.cpp</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
     </PropertyGroup>
@@ -150,6 +150,8 @@
         <Icon_MainIcon>Res\ikona.ico</Icon_MainIcon>
         <LinkPackageStatics>rtl.lib;vcl.lib;vclwinx.lib;vclimg.lib;bindengine.lib;VclSmp.lib;vclx.lib;vclactnband.lib;xmlrtl.lib</LinkPackageStatics>
         <AppExecutionLevel>requireAdministrator</AppExecutionLevel>
+        <PostBuildEvent><![CDATA[copy /B "$(OUTPUTDIR)$(OUTPUTFILENAME)" "$(PROJECTDIR)\Deploy\Frutzov uber Racun.exe"
+$(PostBuildEvent)]]></PostBuildEvent>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_3)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
@@ -164,6 +166,8 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_3_Win32)'!=''">
         <BCC_Defines>BUILD_OFFICIAL;$(BCC_Defines)</BCC_Defines>
+        <PostBuildEvent><![CDATA[copy /B "$(OUTPUTDIR)$(OUTPUTFILENAME)" "$(PROJECTDIR)\Deploy\Fiskalni Racun.exe"
+$(PostBuildEvent)]]></PostBuildEvent>
     </PropertyGroup>
     <ItemGroup>
         <CppCompile Include="Forms\unitAdditionalOptions.cpp">
@@ -328,13 +332,13 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(UsingDelphiRTL)'=='true'" LocalName="$(BDS)\bin\borlndmm.dll" Class="DependencyModule">
-                    <Platform Name="Win32">
+                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile Condition="'$(DynamicRTL)'=='true'" LocalName="$(BDS)\Redist\osx32\libcgcrtl.dylib" Class="DependencyModule">
-                    <Platform Name="OSX32">
+                <DeployFile Condition="'$(UsingDelphiRTL)'=='true'" LocalName="$(BDS)\bin\borlndmm.dll" Class="DependencyModule">
+                    <Platform Name="Win32">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -1194,8 +1198,8 @@
                 <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>
@@ -1212,4 +1216,20 @@
     <Import Project="$(BDS)\Bin\CodeGear.Cpp.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Cpp.Targets')"/>
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
     <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+    <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win32'">
+        <PreBuildEvent/>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>copy /B &quot;$(OUTPUTDIR)$(OUTPUTFILENAME)&quot; &quot;$(PROJECTDIR)\Deploy\Frutzov uber Racun.exe&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Config)'=='Official' And '$(Platform)'=='Win32'">
+        <PreBuildEvent/>
+        <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
+        <PreLinkEvent/>
+        <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
+        <PostBuildEvent>copy /B &quot;$(OUTPUTDIR)$(OUTPUTFILENAME)&quot; &quot;$(PROJECTDIR)\Deploy\Fiskalni Racun.exe&quot;&amp;&amp;copy /B &quot;$(OUTPUTDIR)$(OUTPUTFILENAME)&quot; &quot;$(PROJECTDIR)\Deploy\Frutzov uber Racun.exe&quot;</PostBuildEvent>
+        <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
+    </PropertyGroup>
 </Project>
