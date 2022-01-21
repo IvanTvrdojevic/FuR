@@ -70,7 +70,7 @@ __published:	// IDE-managed Components
 	TButton *buttonSave;
 	TButton *buttonNew;
 	TGroupBox *GroupBox4;
-	TButton *buttonPrint;
+	TButton *btnPrint;
 	TSpinEdit *spinEditCopies;
 	TLabel *Label11;
 	TLabel *Label23;
@@ -115,7 +115,7 @@ __published:	// IDE-managed Components
 	void __fastcall TimerTimer(TObject *Sender);
 	void __fastcall checkBoxTimeClick(TObject *Sender);
 	void __fastcall buttonSaveClick(TObject *Sender);
-	void __fastcall buttonPrintClick(TObject *Sender);
+	void __fastcall btnPrintClick(TObject *Sender);
 	void __fastcall datePickerServiceDateChange(TObject *Sender);
 	void __fastcall datePickerIssueDateChange(TObject *Sender);
 	void __fastcall datePickerArrivalDateChange(TObject *Sender);

@@ -447,7 +447,7 @@ void __fastcall TformMain::buttonNewClick(TObject *Sender)
 	formOpenNew->ShowModal();
 }
 
-void __fastcall TformMain::buttonPrintClick(TObject *Sender)
+void __fastcall TformMain::btnPrintClick(TObject *Sender)
 {
 	if(!validateAll()) return;
 
