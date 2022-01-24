@@ -30,7 +30,7 @@ __published:	// IDE-managed Components
 private:	// User declarations
 	void resetConfigFile();
 	void showXMLInMemo();
-	void checkXMLInMemo();
+	bool checkXMLInMemo();
     void saveXMLAndContinue();
 public:		// User declarations
 	__fastcall TformCorruptSettings(TComponent* Owner);

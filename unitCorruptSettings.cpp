@@ -31,7 +31,7 @@ void TformCorruptSettings::showXMLInMemo(){
 	memoXMLFile->Lines->LoadFromFile(labelPathToFile->Caption);
 }
 
-void TformCorruptSettings::checkXMLInMemo(){
+bool TformCorruptSettings::checkXMLInMemo(){
 	String memoLines = memoXMLFile->Lines->Text;
 	TXMLDocument* XMLDocumentOwnerHeap = new TXMLDocument(formCorruptSettings);
 
@@ -44,8 +44,9 @@ void TformCorruptSettings::checkXMLInMemo(){
 	catch(...){
 		showMessageCustom("oopsie whoopsie");
 		btnSaveChanges->Enabled = false;
-		return;
+		return false;
 	}
+	return true;
 }
 
 void TformCorruptSettings::saveXMLAndContinue(){
@@ -207,9 +208,9 @@ void __fastcall TformCorruptSettings::Button4Click(TObject *Sender)
 
 void __fastcall TformCorruptSettings::btnSaveChangesClick(TObject *Sender)
 {
-	checkXMLInMemo();
-	saveXMLAndContinue();
-
+	if(checkXMLInMemo()){
+		saveXMLAndContinue();
+	}
 }
 //---------------------------------------------------------------------------
 
