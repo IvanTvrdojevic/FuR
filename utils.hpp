@@ -37,11 +37,16 @@ void DBG_MSG(T_MSG message){
 	else
 		messageSpec = message;
 
-	if(formMain->Memo1->Visible){
-		formMain->Memo1->Lines->Add(messageSpec);
-	}
-	else if(formMain->enableDbgOut){
+	if(formMain->Visible == false){
 		showMessageCustomWrp(messageSpec);
+	}
+	else{
+		if(formMain->Memo1->Visible){
+			formMain->Memo1->Lines->Add(messageSpec);
+		}
+		else if(formMain->enableDbgOut){
+			showMessageCustomWrp(messageSpec);
+		}
 	}
 }
 

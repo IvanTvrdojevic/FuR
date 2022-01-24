@@ -19,14 +19,19 @@ __published:	// IDE-managed Components
 	TButton *Button3;
 	TButton *Button4;
 	TLabel *labelPathToFile;
-	TButton *Button5;
+	TButton *btnSaveChanges;
 	void __fastcall Button2Click(TObject *Sender);
 	void __fastcall buttonCloseAndFixClick(TObject *Sender);
-	void __fastcall FormClose(TObject *Sender, TCloseAction &Action);
 	void __fastcall groupBoxConfigMouseEnter(TObject *Sender);
 	void __fastcall Button3Click(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
+	void __fastcall Button4Click(TObject *Sender);
+	void __fastcall btnSaveChangesClick(TObject *Sender);
 private:	// User declarations
+	void resetConfigFile();
+	void showXMLInMemo();
+	void checkXMLInMemo();
+    void saveXMLAndContinue();
 public:		// User declarations
 	__fastcall TformCorruptSettings(TComponent* Owner);
 };

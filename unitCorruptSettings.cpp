@@ -1,14 +1,16 @@
-//---------------------------------------------------------------------------
+﻿//---------------------------------------------------------------------------
 
 #include <vcl.h>
 #pragma hdrstop
 
 #include "common.h"
+#include "utils.h"
 
 #include "unitLogo.h"
 #include "unitCorruptSettings.h"
 #include "unitSetConfigFolder.h"
 #include "unitMain.h"
+#include "unitShowMessageCustom.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -20,6 +22,38 @@ __fastcall TformCorruptSettings::TformCorruptSettings(TComponent* Owner)
 {
 }
 //---------------------------------------------------------------------------
+
+void TformCorruptSettings::resetConfigFile(){
+	DeleteFile(labelPathToFile->Caption);
+}
+
+void TformCorruptSettings::showXMLInMemo(){
+	memoXMLFile->Lines->LoadFromFile(labelPathToFile->Caption);
+}
+
+void TformCorruptSettings::checkXMLInMemo(){
+	String memoLines = memoXMLFile->Lines->Text;
+	TXMLDocument* XMLDocumentOwnerHeap = new TXMLDocument(formCorruptSettings);
+
+
+    try{
+		if(FileExists(labelPathToFile->Caption))
+			XMLDocumentOwnerHeap->LoadFromXML(memoLines);
+			btnSaveChanges->Enabled = true;
+	}
+	catch(...){
+		showMessageCustom("oopsie whoopsie");
+		btnSaveChanges->Enabled = false;
+		return;
+	}
+}
+
+void TformCorruptSettings::saveXMLAndContinue(){
+	memoXMLFile->Lines->SaveToFile(labelPathToFile->Caption, TEncoding::UTF8);
+	Close();
+	formLogo->fadeTimer->Enabled = true;
+}
+
 void __fastcall TformCorruptSettings::Button2Click(TObject *Sender)
 {
 	// WIN API
@@ -29,9 +63,9 @@ void __fastcall TformCorruptSettings::Button2Click(TObject *Sender)
 		config.hInstance                = NULL;
 
 		config.pszMainIcon              = TD_WARNING_ICON;
-		config.pszWindowTitle           = L"Upozorenje";
-		config.pszMainInstruction       = L"Naslov";
-		config.pszContent               = L"Poruka";
+		config.pszWindowTitle           = L"Upozorenje!";
+		config.pszMainInstruction       = L"Jeste li sigurni da želite napraviti novi file?";
+		config.pszContent               = L"Postojeća datoteka biti će izbrisana!";
 
 		config.dwCommonButtons          = NULL;
 
@@ -39,7 +73,13 @@ void __fastcall TformCorruptSettings::Button2Click(TObject *Sender)
 										  {IDOK, L"Potvrdi"},
 										  {IDCANCEL, L"Povratak"}
 										  };
-		config.cButtons                 = ARRAYSIZE(config.pButtons);
+
+		TASKDIALOG_BUTTON buttons[]     = {
+										  {IDOK, L"Potvrdi"},
+										  {IDCANCEL, L"Povratak"}
+										  };
+
+		config.cButtons                 = ARRAYSIZE(buttons);
 
 		config.nDefaultButton           = IDCANCEL;
 
@@ -49,7 +89,7 @@ void __fastcall TformCorruptSettings::Button2Click(TObject *Sender)
 		switch(nButtonPressed)
 		{
 			case IDOK:
-					// do something
+				resetConfigFile();
 				break;
 			case IDCANCEL:
 					// do something else
@@ -61,7 +101,7 @@ void __fastcall TformCorruptSettings::Button2Click(TObject *Sender)
 
 
 
-
+	/*
 	// RAD VCL wrapper of WIN API TaskDialogIndirect - more code but also more control
 	{
 		TTaskDialog *taskDialog = new TTaskDialog(this);
@@ -123,6 +163,7 @@ void __fastcall TformCorruptSettings::Button2Click(TObject *Sender)
 				break;
 		}
 	}
+	*/
 }
 
 //---------------------------------------------------------------------------
@@ -136,12 +177,6 @@ void __fastcall TformCorruptSettings::buttonCloseAndFixClick(TObject *Sender)
 	Application->Terminate();
 }
 //---------------------------------------------------------------------------
-void __fastcall TformCorruptSettings::FormClose(TObject *Sender, TCloseAction &Action)
-
-{
-	formLogo->fadeTimer->Enabled = true;
-}
-//---------------------------------------------------------------------------
 void __fastcall TformCorruptSettings::groupBoxConfigMouseEnter(TObject *Sender)
 {
 	labelPathToFile->Hint = labelPathToFile->Caption;
@@ -151,7 +186,7 @@ void __fastcall TformCorruptSettings::groupBoxConfigMouseEnter(TObject *Sender)
 
 void __fastcall TformCorruptSettings::Button3Click(TObject *Sender)
 {
-	memoXMLFile->Lines->LoadFromFile(labelPathToFile->Caption);
+	showXMLInMemo();
 	groupBoxConfig->Top = 200 + DEFAULT_MARGIN;
 	groupBoxConfig->Visible = true;
 	formCorruptSettings->Top = (Screen->Height - formCorruptSettings->Height)/2;
@@ -161,6 +196,20 @@ void __fastcall TformCorruptSettings::Button3Click(TObject *Sender)
 void __fastcall TformCorruptSettings::FormShow(TObject *Sender)
 {
 	labelPathToFile->Caption = formSetConfigFolder->getProgramDataFileName();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TformCorruptSettings::Button4Click(TObject *Sender)
+{
+	checkXMLInMemo();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TformCorruptSettings::btnSaveChangesClick(TObject *Sender)
+{
+	checkXMLInMemo();
+	saveXMLAndContinue();
+
 }
 //---------------------------------------------------------------------------
 
