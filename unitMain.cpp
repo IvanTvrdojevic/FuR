@@ -310,7 +310,7 @@ void TformMain::printReceipt(){
 		Printer()->Canvas->TextOut(2200, 4565, editQuantity->Text);
 		Printer()->Canvas->TextOut(2535, 4565, comboBoxMeasureUnit->Text);
 		Printer()->Canvas->TextOut(2790, 4565, editWholesalePrice->Text);
-		Printer()->Canvas->TextOut(3430, 4565, editPdv->Text);
+		Printer()->Canvas->TextOut(3430, 4565, "string neki bezveze "); //editPdv->Text
 		Printer()->Canvas->TextOut(4075, 4565, labelNoPdv->Caption);
 		Printer()->Canvas->TextOut(4075, 5220, labelNoPdv1->Caption);
 		Printer()->Canvas->TextOut(4075, 5360, labelOnlyPdv->Caption);
