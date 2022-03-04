@@ -251,10 +251,10 @@ bool TformMain::checkEmpty()
 
 void TformMain::calculate(){
 	noPdv = vpc * quantity;
-	labelNoPdv->Caption = FormatFloat("#########.00", noPdv);
-	labelNoPdv1->Caption =  FormatFloat("#########.00", noPdv);
-	labelOnlyPdv->Caption =  FormatFloat("#########.00", noPdv * (pdv / 100));
-	labelTotalSum->Caption = FormatFloat("#########.00", noPdv + noPdv * (pdv / 100));
+	labelNoPdv->Caption = FormatFloat("#########.00", noPdv) + " kn";
+	labelNoPdv1->Caption =  FormatFloat("#########.00", noPdv) + " kn";
+	labelOnlyPdv->Caption =  FormatFloat("#########.00", noPdv * (pdv / 100)) + " kn";
+	labelTotalSum->Caption = FormatFloat("#########.00", noPdv + noPdv * (pdv / 100)) + " kn";
 }
 
 void __fastcall TformMain::editPdvChange(TObject *Sender)
@@ -314,6 +314,7 @@ void TformMain::printReceipt(){
 		Printer()->Canvas->TextOut(4075, 4565, labelNoPdv->Caption);
 		Printer()->Canvas->TextOut(4075, 5220, labelNoPdv1->Caption);
 		Printer()->Canvas->TextOut(4075, 5360, labelOnlyPdv->Caption);
+		Printer()->Canvas->TextOut(3970, 5360, labelPdvkurco->Caption);
 		Printer()->Canvas->TextOut(4075, 5470, labelTotalSum->Caption);
 	}
 	__finally {
