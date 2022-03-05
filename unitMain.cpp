@@ -70,6 +70,7 @@ void TformMain::makeNew()
 
 	editArticleID->Text = "";
 	editQuantity->Text = "0";
+    comboBoxMeasureUnit->Text = "";
 	editWholesalePrice->Text = "0";
 	labelNoPdv1->Caption = "";
 	labelNoPdv->Caption = "";
@@ -92,15 +93,20 @@ void TformMain::makeNew()
 	datePickerIssueDate->Color = clRed;
 	datePickerArrivalDate->Color = clRed;
 
+	comboBoxArticleTypes->ItemIndex = -1;
 	addUniqueItemToComboBox(comboBoxArticleTypes, "Soja");
 	addUniqueItemToComboBox(comboBoxArticleTypes, "Kukuruz");
 	addUniqueItemToComboBox(comboBoxArticleTypes, "Žito");
 	addUniqueItemToComboBox(comboBoxArticleTypes, "Svinje");
-    comboBoxMeasureUnit->ItemIndex = -1;
 
+	comboBoxMeasureUnit->ItemIndex = -1;
 	addUniqueItemToComboBox(comboBoxMeasureUnit, "kg");
 	addUniqueItemToComboBox(comboBoxMeasureUnit, "g");
 	comboBoxMeasureUnit->ItemIndex = 0;
+	// calling manually update on string grid since comboBoxMeasureUnitChange
+	// is not triggered when itemIndex change is done from code
+    // MOST LIKELY C++ Builder BUG!!!
+	StringGrid1->Cells[3][StringGrid1->Row] = comboBoxMeasureUnit->Text;
 
 	receiptSaved = false;
 }
@@ -255,6 +261,8 @@ void TformMain::calculate(){
 	labelNoPdv1->Caption =  FormatFloat("#########.00", noPdv) + " kn";
 	labelOnlyPdv->Caption =  FormatFloat("#########.00", noPdv * (pdv / 100)) + " kn";
 	labelTotalSum->Caption = FormatFloat("#########.00", noPdv + noPdv * (pdv / 100)) + " kn";
+
+    StringGrid1->Cells[5][StringGrid1->Row] = labelNoPdv->Caption;
 }
 
 void __fastcall TformMain::editPdvChange(TObject *Sender)
@@ -266,12 +274,14 @@ void __fastcall TformMain::editPdvChange(TObject *Sender)
 
 void __fastcall TformMain::editQuantityChange(TObject *Sender)
 {
+	StringGrid1->Cells[2][StringGrid1->Row] = editQuantity->Text;
 	validate(editQuantity, &quantity);
 	calculate();
 }
 
 void __fastcall TformMain::editWholesalePriceChange(TObject *Sender)
 {
+	StringGrid1->Cells[4][StringGrid1->Row] = editWholesalePrice->Text;
 	validate(editWholesalePrice, &vpc);
 	calculate();
 }
@@ -313,8 +323,8 @@ void TformMain::printReceipt(){
 		Printer()->Canvas->TextOut(3430, 4565, editPdv->Text);
 		Printer()->Canvas->TextOut(4075, 4565, labelNoPdv->Caption);
 		Printer()->Canvas->TextOut(4075, 5220, labelNoPdv1->Caption);
-		Printer()->Canvas->TextOut(4075, 5360, labelOnlyPdv->Caption);
-		Printer()->Canvas->TextOut(3970, 5360, labelPdvkurco->Caption);
+		Printer()->Canvas->TextOut(4075, 5355, labelOnlyPdv->Caption);
+		Printer()->Canvas->TextOut(3770, 5355, labelPdvkurco->Caption);
 		Printer()->Canvas->TextOut(4075, 5470, labelTotalSum->Caption);
 	}
 	__finally {
@@ -547,6 +557,7 @@ void __fastcall TformMain::FormShow(TObject *Sender)
 
 void __fastcall TformMain::comboBoxArticleTypesChange(TObject *Sender)
 {
+	StringGrid1->Cells[1][StringGrid1->Row] = comboBoxArticleTypes->Text;
 	validate(comboBoxArticleTypes);
 }
 
@@ -597,9 +608,17 @@ void __fastcall TformMain::FormCreate(TObject *Sender)
 	StringGrid1->ColWidths[5] = labelNoPdv->Width + diff;
 }
 
+void __fastcall TformMain::editArticleIDChange(TObject *Sender)
+{
+	 StringGrid1->Cells[0][StringGrid1->Row] = editArticleID->Text;
+}
+
+void __fastcall TformMain::comboBoxMeasureUnitChange(TObject *Sender)
+{
+	StringGrid1->Cells[3][StringGrid1->Row] = comboBoxMeasureUnit->Text;
+}
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //														    FORM CONTROLS EVENTS
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 //******************************************************************************
-

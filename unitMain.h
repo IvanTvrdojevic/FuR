@@ -121,12 +121,14 @@ __published:	// IDE-managed Components
 	void __fastcall Button1Click(TObject *Sender);
 	void __fastcall Button3Click(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
-	void __fastcall comboBoxArticleTypesChange(TObject *Sender);
 	void __fastcall editCardChange(TObject *Sender);
 	void __fastcall buttonOpenClick(TObject *Sender);
 	void __fastcall checkBoxIssueDateClick(TObject *Sender);
 	void __fastcall checkBoxArrivalDateClick(TObject *Sender);
 	void __fastcall FormCreate(TObject *Sender);
+	void __fastcall editArticleIDChange(TObject *Sender);
+	void __fastcall comboBoxMeasureUnitChange(TObject *Sender);
+	void __fastcall comboBoxArticleTypesChange(TObject *Sender);
 
 private:	// User declarations
 	bool validatedDate = true;
