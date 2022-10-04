@@ -23,6 +23,7 @@ typedef String RADstring;
 //******************************************************************************
 // METHODS
 //******************************************************************************
+float RADstringToFloat(RADstring str);
 STLstring strConvert(RADstring inString);
 RADstring strConvert(STLstring inString);
 RADstring removeWhitespacesFromString(RADstring const& input);

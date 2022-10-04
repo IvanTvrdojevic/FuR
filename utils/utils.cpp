@@ -10,6 +10,14 @@
 //******************************************************************************
 // METHODS
 //******************************************************************************
+float RADstringToFloat(RADstring str)
+{
+	String strTmp = StringReplace(str, _D(","), _D("."), TReplaceFlags() << rfReplaceAll);
+	TFormatSettings fmt = TFormatSettings::Create();
+	fmt.DecimalSeparator = _D('.');
+	return StrToFloat(strTmp, fmt);
+}
+
 STLstring strConvert(RADstring inString){
 	return STLstring(inString.c_str());
 }

@@ -8,6 +8,7 @@
 
 #include "unitMain.h"
 #include "unitAdditionalOptions.h"
+#include "unitSetConfigFolder.h"
 
 #include "unitOptions.h"
 //******************************************************************************
@@ -62,6 +63,8 @@ void TformOptions::updateDependentFormFields(){
 
 	labelReceiptFilePath->Caption = editReceiptFilePath->Text;
 	updateReceiptFileNameWitouthExt();
+
+    labelProgramDataFilePath->Caption = formSetConfigFolder->getProgramDataFileName();
 }
 
 void TformOptions::resetFormProgramDataFields(){

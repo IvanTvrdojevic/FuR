@@ -59,6 +59,9 @@ __fastcall TformMain::TformMain(TComponent* Owner)
 // New receipt
 void TformMain::makeNew()
 {
+	float eurConvRate = 7.53450;
+	editFixExRate->Text = FormatFloat("#.00000", eurConvRate);
+
 	programData.setFieldOf_receiptNumber();
 	spinEditReceiptNumber->Value += 1;
 
@@ -121,7 +124,7 @@ void TformMain::validate(TEdit *edit, float *var){
 	edit->Color = clRed;
 	if(edit->Text != "" && edit->Text != "0"){
 		try{
-			*var = StrToFloat(edit->Text);
+			*var = RADstringToFloat(edit->Text);
 			edit->Color = clMoneyGreen;
 		}
 		catch (EConvertError &E){
@@ -249,21 +252,28 @@ bool TformMain::checkEmpty()
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 // CALCULATION LOGIC
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// EUR__REMOVE_LATER
+String convertToEur(float kuna)
+{
+	float eur = kuna / RADstringToFloat(formMain->editFixExRate->Text);
+	return FormatFloat("#########.00", eur) + " eur";
+}
 
 void TformMain::calculate(){
 	noPdv = vpc * quantity;
 	labelNoPdv->Caption = FormatFloat("#########.00", noPdv) + " kn";
 	labelNoPdv1->Caption =  FormatFloat("#########.00", noPdv) + " kn";
 	labelOnlyPdv->Caption =  FormatFloat("#########.00", noPdv * (pdv / 100)) + " kn";
-	labelTotalSum->Caption = FormatFloat("#########.00", noPdv + noPdv * (pdv / 100)) + " kn";
-
-    StringGrid1->Cells[5][StringGrid1->Row] = labelNoPdv->Caption;
+	float total = noPdv + noPdv * (pdv / 100);
+	labelTotalSum->Caption = FormatFloat("#########.00", total) + " kn";
+	labelTotalSumEUR->Caption = convertToEur(total);
+	StringGrid1->Cells[5][StringGrid1->Row] = labelNoPdv->Caption;
 }
 
 void __fastcall TformMain::editPdvChange(TObject *Sender)
 {
 	validate(editPdv, &pdv);
-	labelPdvkurco->Caption = editPdv->Text;
+	labelPdvkurco->Caption = editPdv->Text + "%";
 	calculate();
 }
 
@@ -316,11 +326,15 @@ void TformMain::printReceipt(){
 		Printer()->Canvas->TextOut(2535, 4565, comboBoxMeasureUnit->Text);
 		Printer()->Canvas->TextOut(2790, 4565, editWholesalePrice->Text);
 		Printer()->Canvas->TextOut(3430, 4565, editPdv->Text);
-		Printer()->Canvas->TextOut(4075, 4565, labelNoPdv->Caption);
-		Printer()->Canvas->TextOut(4075, 5220, labelNoPdv1->Caption);
-		Printer()->Canvas->TextOut(4075, 5355, labelOnlyPdv->Caption);
-		Printer()->Canvas->TextOut(3770, 5355, labelPdvkurco->Caption);
-		Printer()->Canvas->TextOut(4075, 5470, labelTotalSum->Caption);
+		Printer()->Canvas->TextOut(4100, 4565, labelNoPdv->Caption);
+		Printer()->Canvas->TextOut(3950, 5230, labelNoPdv1->Caption);
+		Printer()->Canvas->TextOut(3950, 5355, labelOnlyPdv->Caption);
+		Printer()->Canvas->TextOut(3730, 5355, labelPdvkurco->Caption);
+		Printer()->Canvas->TextOut(3950, 5475, labelTotalSum->Caption);
+        Printer()->Canvas->Font = fontDlgPrintLabels->Font;
+		Printer()->Canvas->TextOut(3950, 5610, editFixExRate->Text);
+		Printer()->Canvas->Font = fontDlgPrint->Font;
+		Printer()->Canvas->TextOut(3950, 5755, labelTotalSumEUR->Caption);
 	}
 	__finally {
 		Printer()->EndDoc();
@@ -346,6 +360,11 @@ void TformMain::printToFile(){
 
 	pgWidth = Printer()->PageWidth;
 	pgHeight = Printer()->PageHeight;
+	// AAAAAAARRRRRGGGGGGHHHHHH!!!!!!
+	// Quick fix to have same size on VM and laptop
+    // Objects on the canvas should be printed/drawn in relative coords!!!!
+	pgWidth = 4961;
+	pgHeight = 7016;
 
 	printReceipt();
 }
@@ -436,11 +455,11 @@ void TformMain::saveReceipt(){
 	receipt->OIB = comboBoxOIBs->Text;
 	receipt->articleID = editArticleID->Text;
 	receipt->articleType = comboBoxArticleTypes->Text;
-	receipt->quantity = editQuantity->Text.ToDouble();
+	receipt->quantity = RADstringToFloat(editQuantity->Text);
 	receipt->measureUnit = comboBoxMeasureUnit->Text;
-	receipt->wholesalePrice = editWholesalePrice->Text.ToDouble();
-	receipt->wholesaleDiscount = editWholesaleDiscount->Text.ToDouble();
-	receipt->pdv = editPdv->Text.ToDouble();
+	receipt->wholesalePrice = RADstringToFloat(editWholesalePrice->Text);
+	receipt->wholesaleDiscount = RADstringToFloat(editWholesaleDiscount->Text);
+	receipt->pdv = RADstringToFloat(editPdv->Text);
 
 	XMLDocReceipt->SaveToFile(getReceiptFileName());
 	receiptSaved = True;
@@ -460,7 +479,7 @@ void __fastcall TformMain::buttonNewClick(TObject *Sender)
 	formOpenNew->ShowModal();
 }
 
-void __fastcall TformMain::btnPrintClick(TObject *Sender)
+void __fastcall TformMain::buttonPrintClick(TObject *Sender)
 {
 	if(!validateAll()) return;
 
@@ -522,12 +541,12 @@ void __fastcall TformMain::datePickerArrivalDateChange(TObject *Sender)
 	datePickerArrivalDate->Color = clMoneyGreen;
 }
 
-void __fastcall TformMain::Button1Click(TObject *Sender)
+void __fastcall TformMain::buttonCloseClick(TObject *Sender)
 {
 	formClose->ShowModal();
 }
 
-void __fastcall TformMain::Button3Click(TObject *Sender)
+void __fastcall TformMain::buttonOptionsClick(TObject *Sender)
 {
 	formOptions->ShowModal();
 }
@@ -599,8 +618,28 @@ void __fastcall TformMain::comboBoxMeasureUnitChange(TObject *Sender)
 {
 	StringGrid1->Cells[3][StringGrid1->Row] = comboBoxMeasureUnit->Text;
 }
+
+
+
+
+void __fastcall TformMain::GroupBox2MouseEnter(TObject *Sender)
+{
+	// NASTY HACK!!! DatePicker doesnt call its onChange event, if after setting date in it,
+	// next action is click inside TComboBox!!!
+	// Since usual workflow is to set date and then click on the comboBoxArticleTypes, it is anoying
+	// when date doesnt update !!!
+    // This is for sure RAD/C++ builder bug, since eg clicking inside normal TextEdit it doesnt behave like this
+	mouse_event(MOUSEEVENTF_LEFTDOWN,0, 0, 0, 0);
+	mouse_event(MOUSEEVENTF_LEFTUP,0, 0, 0, 0);
+}
+//---------------------------------------------------------------------------
+
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //														    FORM CONTROLS EVENTS
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 //******************************************************************************
+
+
+
+

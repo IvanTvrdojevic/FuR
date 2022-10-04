@@ -78,10 +78,10 @@ void __fastcall TformLogo::FormShow(TObject *Sender)
 
 #ifdef BUILD_OFFICIAL
 	formMain->Caption = PROGRAM_NAME_OFFICIAL;
-	formMain->btnPrint->Caption = "ISPRINTAJ!";
+	formMain->buttonPrint->Caption = "ISPRINTAJ!";
 #else
 	formMain->Caption = "FRUTZOV UBER RACUN";
-	formMain->btnPrint->Caption = "SAPRINTAJ!!!";
+	formMain->buttonPrint->Caption = "SAPRINTAJ!!!";
 #endif
 	formMain->Color =  clBtnFace;
 

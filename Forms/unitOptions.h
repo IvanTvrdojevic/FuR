@@ -40,6 +40,8 @@ __published:	// IDE-managed Components
 	TLabel *labelReceiptFilePath;
 	TCheckBox *checkBoxReceiptDateSufix;
 	TButton *btnAdditionalOptions;
+	TLabel *Label3;
+	TLabel *labelProgramDataFilePath;
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall btnCancelClick(TObject *Sender);
 	void __fastcall btnSetReceiptFolderClick(TObject *Sender);

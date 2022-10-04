@@ -70,7 +70,7 @@ __published:	// IDE-managed Components
 	TButton *buttonSave;
 	TButton *buttonNew;
 	TGroupBox *GroupBox4;
-	TButton *btnPrint;
+	TButton *buttonPrint;
 	TSpinEdit *spinEditCopies;
 	TLabel *Label11;
 	TLabel *Label23;
@@ -80,11 +80,11 @@ __published:	// IDE-managed Components
 	TTimer *Timer;
 	TComboBox *comboBoxArticleTypes;
 	TComboBox *comboBoxMeasureUnit;
-	TButton *Button1;
+	TButton *buttonClose;
 	TPanel *Panel1;
 	TImage *imageFirstPage;
 	TMemo *Memo1;
-	TButton *Button3;
+	TButton *buttonOptions;
 	TFontDialog *fontDlgPrint;
 	TXMLDocument *XMLDocProgramData;
 	TXMLDocument *XMLDocReceipt;
@@ -108,6 +108,11 @@ __published:	// IDE-managed Components
 	TButton *Button2;
 	TButton *Button4;
 	TLabel *labelPdvkurco;
+	TEdit *editFixExRate;
+	TLabel *Label26;
+	TFontDialog *fontDlgPrintLabels;
+	TLabel *Label28;
+	TLabel *labelTotalSumEUR;
 	void __fastcall editPdvChange(TObject *Sender);
 	void __fastcall editQuantityChange(TObject *Sender);
 	void __fastcall editWholesalePriceChange(TObject *Sender);
@@ -115,12 +120,12 @@ __published:	// IDE-managed Components
 	void __fastcall TimerTimer(TObject *Sender);
 	void __fastcall checkBoxTimeClick(TObject *Sender);
 	void __fastcall buttonSaveClick(TObject *Sender);
-	void __fastcall btnPrintClick(TObject *Sender);
+	void __fastcall buttonPrintClick(TObject *Sender);
 	void __fastcall datePickerServiceDateChange(TObject *Sender);
 	void __fastcall datePickerIssueDateChange(TObject *Sender);
 	void __fastcall datePickerArrivalDateChange(TObject *Sender);
-	void __fastcall Button1Click(TObject *Sender);
-	void __fastcall Button3Click(TObject *Sender);
+	void __fastcall buttonCloseClick(TObject *Sender);
+	void __fastcall buttonOptionsClick(TObject *Sender);
 	void __fastcall FormShow(TObject *Sender);
 	void __fastcall editCardChange(TObject *Sender);
 	void __fastcall buttonOpenClick(TObject *Sender);
@@ -130,6 +135,10 @@ __published:	// IDE-managed Components
 	void __fastcall editArticleIDChange(TObject *Sender);
 	void __fastcall comboBoxMeasureUnitChange(TObject *Sender);
 	void __fastcall comboBoxArticleTypesChange(TObject *Sender);
+	void __fastcall GroupBox2MouseEnter(TObject *Sender);
+
+
+
 
 private:	// User declarations
 	bool validatedDate = true;
