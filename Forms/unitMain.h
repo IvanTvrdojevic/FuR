@@ -102,7 +102,7 @@ __published:	// IDE-managed Components
 	TLabel *Label20;
 	TLabel *Label21;
 	TLabel *Label22;
-	TLabel *labelTotalSum;
+	TLabel *labelTotalSumHRK;
 	TLabel *labelOnlyPdv;
 	TLabel *labelNoPdv1;
 	TButton *Button2;
@@ -112,7 +112,7 @@ __published:	// IDE-managed Components
 	TLabel *Label26;
 	TFontDialog *fontDlgPrintLabels;
 	TLabel *Label28;
-	TLabel *labelTotalSumEUR;
+	TLabel *labelTotalSum;
 	void __fastcall editPdvChange(TObject *Sender);
 	void __fastcall editQuantityChange(TObject *Sender);
 	void __fastcall editWholesalePriceChange(TObject *Sender);

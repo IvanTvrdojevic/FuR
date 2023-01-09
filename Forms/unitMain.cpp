@@ -76,7 +76,7 @@ void TformMain::makeNew()
 	labelOnlyPdv->Caption = "";
 	labelTotalSum->Caption = "";
 	editWholesaleDiscount->Text = "0";
-	editPdv->Text = "13";
+	editPdv->Text = "5";
 
 	validate(editPdv, &pdv);
 	validate(editQuantity, &quantity);
@@ -259,14 +259,20 @@ String convertToEur(float kuna)
 	return FormatFloat("#########.00", eur) + " eur";
 }
 
+String convertToHrk(float eur)
+{
+	float kuna = eur * RADstringToFloat(formMain->editFixExRate->Text);
+	return FormatFloat("#########.00", kuna) + " kuna";
+}
+
 void TformMain::calculate(){
 	noPdv = vpc * quantity;
-	labelNoPdv->Caption = FormatFloat("#########.00", noPdv) + " kn";
-	labelNoPdv1->Caption =  FormatFloat("#########.00", noPdv) + " kn";
-	labelOnlyPdv->Caption =  FormatFloat("#########.00", noPdv * (pdv / 100)) + " kn";
+	labelNoPdv->Caption = FormatFloat("#########.00", noPdv) + " eur";
+	labelNoPdv1->Caption =  FormatFloat("#########.00", noPdv) + " eur";
+	labelOnlyPdv->Caption =  FormatFloat("#########.00", noPdv * (pdv / 100)) + " eur";
 	float total = noPdv + noPdv * (pdv / 100);
-	labelTotalSum->Caption = FormatFloat("#########.00", total) + " kn";
-	labelTotalSumEUR->Caption = convertToEur(total);
+	labelTotalSum->Caption = FormatFloat("#########.00", total) + " eur";
+	labelTotalSumHRK->Caption = convertToHrk(total);
 	StringGrid1->Cells[5][StringGrid1->Row] = labelNoPdv->Caption;
 }
 
@@ -330,11 +336,11 @@ void TformMain::printReceipt(){
 		Printer()->Canvas->TextOut(3950, 5230, labelNoPdv1->Caption);
 		Printer()->Canvas->TextOut(3950, 5355, labelOnlyPdv->Caption);
 		Printer()->Canvas->TextOut(3730, 5355, labelPdvkurco->Caption);
-		Printer()->Canvas->TextOut(3950, 5475, labelTotalSum->Caption);
-        Printer()->Canvas->Font = fontDlgPrintLabels->Font;
+        Printer()->Canvas->TextOut(3950, 5475, labelTotalSum->Caption);
+		Printer()->Canvas->Font = fontDlgPrintLabels->Font;
 		Printer()->Canvas->TextOut(3950, 5610, editFixExRate->Text);
 		Printer()->Canvas->Font = fontDlgPrint->Font;
-		Printer()->Canvas->TextOut(3950, 5755, labelTotalSumEUR->Caption);
+		Printer()->Canvas->TextOut(3950, 5755, labelTotalSumHRK->Caption);
 	}
 	__finally {
 		Printer()->EndDoc();
@@ -639,6 +645,7 @@ void __fastcall TformMain::GroupBox2MouseEnter(TObject *Sender)
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 //******************************************************************************
+
 
 
 
