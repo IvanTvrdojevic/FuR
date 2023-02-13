@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdb="http://www.borland.com/schemas/delphi/10.0/XMLDataBinding">
+  <xs:element name="receipt" type="receiptType"/>
+  <xs:complexType name="receiptType"><xs:annotation>
+      <xs:appinfo xdb:docElement="receipt"/>
+    </xs:annotation>
+    <sequence xmlns="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="number" type="xs:integer"/>
+      <xs:element name="serviceDate" type="xs:decimal"/>
+      <xs:element name="issueDate" type="xs:decimal"/>
+      <xs:element name="issueTime" type="xs:string"/>
+      <xs:element name="arrivalDate" type="xs:decimal"/>
+      <xs:element name="card" type="xs:string"/>
+      <xs:element name="OIB" type="xs:string"/>
+      <xs:element name="articleID" type="xs:string"/>
+      <xs:element name="articleType" type="xs:string"/>
+      <xs:element name="quantity" type="xs:string"/>
+      <xs:element name="measureUnit" type="xs:string"/>
+      <xs:element name="wholesalePrice" type="xs:string"/>
+      <xs:element name="wholesaleDiscount" type="xs:string"/>
+      <xs:element name="pdv" type="xs:string"/>
+      <xs:element name="articles" type="articlesType"/>
+    </sequence>
+    <xs:attribute name="version" type="xs:decimal"/>
+  </xs:complexType>
+  <xs:complexType name="articlesType">
+    <sequence xmlns="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="article" type="articleType" maxOccurs="unbounded"/>
+    </sequence>
+  </xs:complexType>
+  <xs:complexType name="articleType"><xs:annotation>
+      <xs:appinfo xdb:repeated="True"/>
+    </xs:annotation>
+    <sequence xmlns="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="articleNum" type="xs:string"/>
+      <xs:element name="articleID" type="xs:string"/>
+      <xs:element name="articleType" type="xs:string"/>
+      <xs:element name="quantity" type="xs:string"/>
+      <xs:element name="measureUnit" type="xs:string"/>
+      <xs:element name="wholesalePrice" type="xs:string"/>
+      <xs:element name="wholesaleDiscount" type="xs:string"/>
+    </sequence>
+  </xs:complexType>
+</xs:schema>

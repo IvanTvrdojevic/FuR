@@ -3,8 +3,9 @@
 //                                                                                       
 //                                   XML Data Binding                                    
 //                                                                                       
-//         Generated on: 1/20/2022 9:46:58 PM                                            
+//         Generated on: 2/13/2023 7:02:01 AM                                            
 //       Generated from: E:\00_WORK\99_RAD\00_CPP\00_FUR\XML\receipt\receiptSchema.xml   
+//   Settings stored in: E:\00_WORK\99_RAD\00_CPP\00_FUR\XML\receipt\receiptSchema.xdb   
 //                                                                                       
 // *************************************************************************************** //
 
@@ -39,6 +40,22 @@ _di_IXMLreceiptType __fastcall  Newreceipt()
 };
 
 // TXMLreceiptType 
+
+void __fastcall TXMLreceiptType::AfterConstruction(void)
+{
+  RegisterChildNode(System::UnicodeString("articles"), __classid(TXMLarticlesType));
+  Xml::Xmldoc::TXMLNode::AfterConstruction();
+};
+
+double __fastcall TXMLreceiptType::Get_version()
+{
+  return XmlStrToFloatExt(GetAttributeNodes()->Nodes[System::UnicodeString("version")]->Text);
+};
+
+void __fastcall TXMLreceiptType::Set_version(double Value)
+{
+  SetAttribute(System::UnicodeString("version"), Value);
+};
 
 int __fastcall TXMLreceiptType::Get_number()
 {
@@ -178,4 +195,123 @@ System::UnicodeString __fastcall TXMLreceiptType::Get_pdv()
 void __fastcall TXMLreceiptType::Set_pdv(System::UnicodeString Value)
 {
   GetChildNodes()->Nodes[System::UnicodeString("pdv")]->NodeValue = Value;
+};
+
+_di_IXMLarticlesType __fastcall TXMLreceiptType::Get_articles()
+{
+  return (_di_IXMLarticlesType) GetChildNodes()->Nodes[System::UnicodeString("articles")];
+};
+
+// TXMLarticlesType 
+
+void __fastcall TXMLarticlesType::AfterConstruction(void)
+{
+  RegisterChildNode(System::UnicodeString("article"), __classid(TXMLarticleType));
+  ItemTag = "article";
+  ItemInterface = __uuidof(IXMLarticleType);
+  Xml::Xmldoc::TXMLNodeCollection::AfterConstruction();
+};
+
+_di_IXMLarticleType __fastcall TXMLarticlesType::Get_article(int Index)
+{
+  return (_di_IXMLarticleType) List->Nodes[Index];
+};
+
+_di_IXMLarticleType __fastcall TXMLarticlesType::Add()
+{
+  return (_di_IXMLarticleType) AddItem(-1);
+};
+
+_di_IXMLarticleType __fastcall TXMLarticlesType::Insert(const int Index)
+{
+  return (_di_IXMLarticleType) AddItem(Index);
+};
+
+// TXMLarticleType 
+
+System::UnicodeString __fastcall TXMLarticleType::Get_articleNum()
+{
+  return GetChildNodes()->Nodes[System::UnicodeString("articleNum")]->Text;
+};
+
+void __fastcall TXMLarticleType::Set_articleNum(System::UnicodeString Value)
+{
+  GetChildNodes()->Nodes[System::UnicodeString("articleNum")]->NodeValue = Value;
+};
+
+System::UnicodeString __fastcall TXMLarticleType::Get_articleID()
+{
+  return GetChildNodes()->Nodes[System::UnicodeString("articleID")]->Text;
+};
+
+void __fastcall TXMLarticleType::Set_articleID(System::UnicodeString Value)
+{
+  GetChildNodes()->Nodes[System::UnicodeString("articleID")]->NodeValue = Value;
+};
+
+System::UnicodeString __fastcall TXMLarticleType::Get_articleType()
+{
+  return GetChildNodes()->Nodes[System::UnicodeString("articleType")]->Text;
+};
+
+void __fastcall TXMLarticleType::Set_articleType(System::UnicodeString Value)
+{
+  GetChildNodes()->Nodes[System::UnicodeString("articleType")]->NodeValue = Value;
+};
+
+System::UnicodeString __fastcall TXMLarticleType::Get_quantity()
+{
+  return GetChildNodes()->Nodes[System::UnicodeString("quantity")]->Text;
+};
+
+void __fastcall TXMLarticleType::Set_quantity(System::UnicodeString Value)
+{
+  GetChildNodes()->Nodes[System::UnicodeString("quantity")]->NodeValue = Value;
+};
+
+System::UnicodeString __fastcall TXMLarticleType::Get_measureUnit()
+{
+  return GetChildNodes()->Nodes[System::UnicodeString("measureUnit")]->Text;
+};
+
+void __fastcall TXMLarticleType::Set_measureUnit(System::UnicodeString Value)
+{
+  GetChildNodes()->Nodes[System::UnicodeString("measureUnit")]->NodeValue = Value;
+};
+
+System::UnicodeString __fastcall TXMLarticleType::Get_wholesalePrice()
+{
+  return GetChildNodes()->Nodes[System::UnicodeString("wholesalePrice")]->Text;
+};
+
+void __fastcall TXMLarticleType::Set_wholesalePrice(System::UnicodeString Value)
+{
+  GetChildNodes()->Nodes[System::UnicodeString("wholesalePrice")]->NodeValue = Value;
+};
+
+System::UnicodeString __fastcall TXMLarticleType::Get_wholesaleDiscount()
+{
+  return GetChildNodes()->Nodes[System::UnicodeString("wholesaleDiscount")]->Text;
+};
+
+void __fastcall TXMLarticleType::Set_wholesaleDiscount(System::UnicodeString Value)
+{
+  GetChildNodes()->Nodes[System::UnicodeString("wholesaleDiscount")]->NodeValue = Value;
+};
+
+// TXMLarticleTypeList 
+
+_di_IXMLarticleType __fastcall TXMLarticleTypeList::Add()
+{
+  return (_di_IXMLarticleType) AddItem(-1);
+};
+
+_di_IXMLarticleType __fastcall TXMLarticleTypeList::Insert(const int Index)
+{
+  return (_di_IXMLarticleType) AddItem(Index);
+};
+
+_di_IXMLarticleType __fastcall TXMLarticleTypeList::Get_Item(int Index)
+{
+  return (_di_IXMLarticleType) List->Nodes[Index];
 };

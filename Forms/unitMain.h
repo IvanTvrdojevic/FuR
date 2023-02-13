@@ -105,14 +105,15 @@ __published:	// IDE-managed Components
 	TLabel *labelTotalSumHRK;
 	TLabel *labelOnlyPdv;
 	TLabel *labelNoPdv1;
-	TButton *Button2;
-	TButton *Button4;
+	TButton *btnAddNewArticle;
+	TButton *btnDeleteArticle;
 	TLabel *labelPdvkurco;
 	TEdit *editFixExRate;
 	TLabel *Label26;
 	TFontDialog *fontDlgPrintLabels;
 	TLabel *Label28;
 	TLabel *labelTotalSum;
+	TGroupBox *GroupBox6;
 	void __fastcall editPdvChange(TObject *Sender);
 	void __fastcall editQuantityChange(TObject *Sender);
 	void __fastcall editWholesalePriceChange(TObject *Sender);
@@ -135,23 +136,36 @@ __published:	// IDE-managed Components
 	void __fastcall editArticleIDChange(TObject *Sender);
 	void __fastcall comboBoxMeasureUnitChange(TObject *Sender);
 	void __fastcall comboBoxArticleTypesChange(TObject *Sender);
-	void __fastcall GroupBox2MouseEnter(TObject *Sender);
+	void __fastcall btnAddNewArticleClick(TObject *Sender);
+	void __fastcall StringGrid1Click(TObject *Sender);
+	void __fastcall btnDeleteArticleClick(TObject *Sender);
+	void __fastcall GroupBox6MouseEnter(TObject *Sender);
+	void __fastcall spinEditReceiptNumberChange(TObject *Sender);
+
 
 
 
 
 private:	// User declarations
+	float defQuantity = 0;
+	float defWholesalePrice = 0;
+	float defWholesaleDiscount = 0;
+	float defPdv = 5;
+	TDateTime defDate = TDateTime(2021, 1, 1);
+	int defMeasureUnit = 0;
+
 	bool validatedDate = true;
 	bool validatedOib = true;
 	bool validatedCard = true;
 	bool validatedFloat = true;
 	bool skipValidate = false;
-	float quantity = 0.;
-	float pdv = 0.;
-	float noPdv = 0.;
-	float vpc = 0.;
+	float quantity = defQuantity;
+	float pdv = defPdv;
+	float noPdv = defPdv;
+	float vpc = defWholesalePrice;
 	int pgWidth = 0;
 	int pgHeight= 0;
+    int currRow = 0;
 
 	void validate(TEdit *edit, float *var);
 	void validate(TComboBox *combo);
@@ -162,6 +176,7 @@ private:	// User declarations
 	void validateOib();
 	bool validateAll();
 	void calculate();
+    void printLine();
 	void printReceipt();
 	void printToFile();
 	void printWithPrinter();
@@ -170,6 +185,7 @@ private:	// User declarations
 	void updateFieldsFromReceipt(_di_IXMLreceiptType receipt);
 	void openReceipt();
 	void saveReceipt();
+	void updateFromGrid(int row);
 
 public:		// User declarations
 	TCHAR outFileName[800];

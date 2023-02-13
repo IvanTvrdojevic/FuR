@@ -67,43 +67,48 @@ void TformMain::makeNew()
 
 	editCard->Text = formSetConfigFolder->mainCard->Text;
 
+	for(int i = 0; i < StringGrid1->RowCount; i++)
+		for(int j = 0; j < StringGrid1->ColCount; j++)
+			StringGrid1->Cells[j][i] = "";
+    StringGrid1->RowCount = 1;
+
 	editArticleID->Text = "";
-	editQuantity->Text = "0";
+	editQuantity->Text = FloatToStr(defQuantity);
     comboBoxMeasureUnit->Text = "";
-	editWholesalePrice->Text = "0";
+	editWholesalePrice->Text = FloatToStr(defWholesalePrice);
 	labelNoPdv1->Caption = "";
 	labelNoPdv->Caption = "";
 	labelOnlyPdv->Caption = "";
 	labelTotalSum->Caption = "";
-	editWholesaleDiscount->Text = "0";
-	editPdv->Text = "5";
+	editWholesaleDiscount->Text = FloatToStr(defWholesaleDiscount);
+	editPdv->Text = FloatToStr(defPdv);
+
+	programData.setFieldOf_OIBs();
+
+	programData.setFieldOf_articleTypes();
+	comboBoxArticleTypes->ItemIndex = -1;
+    comboBoxArticleTypes->Text = "";
 
 	validate(editPdv, &pdv);
 	validate(editQuantity, &quantity);
 	validate(editWholesalePrice, &vpc);
 	validate(comboBoxArticleTypes);
 
-	TDateTime dt(2021, 1, 1);
-	datePickerServiceDate->Date = dt;
-	datePickerIssueDate->Date = dt;
-	datePickerArrivalDate->Date = dt;
+	datePickerServiceDate->Date = defDate;
+	datePickerIssueDate->Date = defDate;
+	datePickerArrivalDate->Date = defDate;
 
 	datePickerServiceDate->Color = clRed;
 	datePickerIssueDate->Color = clRed;
 	datePickerArrivalDate->Color = clRed;
 
-	programData.setFieldOf_OIBs();
-	
-	programData.setFieldOf_articleTypes();
-	comboBoxArticleTypes->ItemIndex = -1;
-
 	comboBoxMeasureUnit->ItemIndex = -1;
 	addUniqueItemToComboBox(comboBoxMeasureUnit, "kg");
 	addUniqueItemToComboBox(comboBoxMeasureUnit, "g");
-	comboBoxMeasureUnit->ItemIndex = 0;
+	comboBoxMeasureUnit->ItemIndex = defMeasureUnit;
 	// calling manually update on string grid since comboBoxMeasureUnitChange
 	// is not triggered when itemIndex change is done from code
-    // MOST LIKELY C++ Builder BUG!!!
+	// MOST LIKELY C++ Builder BUG!!!
 	StringGrid1->Cells[3][StringGrid1->Row] = comboBoxMeasureUnit->Text;
 
 	receiptSaved = false;
@@ -133,13 +138,17 @@ void TformMain::validate(TEdit *edit, float *var){
 		}
 	}else
 		*var = 0;
+
+    receiptSaved = false;
 }
 
 void TformMain::validate(TComboBox *combo){
 	combo->Color = clRed;
 	if(combo->Text != ""){
-			combo->Color = clMoneyGreen;
+		combo->Color = clMoneyGreen;
 	}
+
+    receiptSaved = false;
 }
 
 void TformMain::validateDate(){
@@ -158,6 +167,8 @@ void TformMain::validateDate(){
 		   showMessageCustomWrp("Datum izdavanja/isporuke/dospijeca nije postavljen!");
 		validatedDate = false;
 	}
+
+    receiptSaved = false;
 }
 
 void TformMain::validateDateColor(TDatePicker* checkDt){
@@ -268,12 +279,17 @@ String convertToHrk(float eur)
 void TformMain::calculate(){
 	noPdv = vpc * quantity;
 	labelNoPdv->Caption = FormatFloat("#########.00", noPdv) + " eur";
+	StringGrid1->Cells[5][StringGrid1->Row] = FormatFloat("#########.00", noPdv);
+
+	noPdv = 0.;
+	for(int row = 0; row < StringGrid1->RowCount; ++row)
+	   noPdv += RADstringToFloat(StringGrid1->Cells[5][row]);
+
 	labelNoPdv1->Caption =  FormatFloat("#########.00", noPdv) + " eur";
 	labelOnlyPdv->Caption =  FormatFloat("#########.00", noPdv * (pdv / 100)) + " eur";
 	float total = noPdv + noPdv * (pdv / 100);
 	labelTotalSum->Caption = FormatFloat("#########.00", total) + " eur";
 	labelTotalSumHRK->Caption = convertToHrk(total);
-	StringGrid1->Cells[5][StringGrid1->Row] = labelNoPdv->Caption;
 }
 
 void __fastcall TformMain::editPdvChange(TObject *Sender)
@@ -308,6 +324,29 @@ void __fastcall TformMain::editWholesalePriceChange(TObject *Sender)
 
 //------------------------------------------------------------------------------
 // Printing to canvas
+void TformMain::printLine(){
+	int startY = 4565;
+	int textBox = 100;
+	int padding = 15;
+
+	for(int i = 0; i < StringGrid1->RowCount; i++)
+	{
+		int textOffset = startY + (textBox + padding)*i + padding*(i + 1);
+		Printer()->Canvas->TextOut(400, textOffset, IntToStr(i + 1));
+		Printer()->Canvas->TextOut(700, textOffset, StringGrid1->Cells[0][i]);
+		Printer()->Canvas->TextOut(1350, textOffset, StringGrid1->Cells[1][i]);
+		Printer()->Canvas->TextOut(2200, textOffset, StringGrid1->Cells[2][i]);
+		Printer()->Canvas->TextOut(2535, textOffset, StringGrid1->Cells[3][i]);
+		Printer()->Canvas->TextOut(2790, textOffset, StringGrid1->Cells[4][i]);
+		Printer()->Canvas->TextOut(3430, textOffset, editPdv->Text);
+		Printer()->Canvas->TextOut(4100, textOffset, StringGrid1->Cells[5][i]);
+
+		int lineOffset = startY + (textBox + 2*padding)*(i + 1);
+		Printer()->Canvas->MoveTo(270, lineOffset);
+		Printer()->Canvas->LineTo(4780, lineOffset);
+	}
+}
+
 void TformMain::printReceipt(){
 
 	Printer()->BeginDoc();
@@ -326,13 +365,7 @@ void TformMain::printReceipt(){
 		Printer()->Canvas->TextOut(3180, 3300, datePickerServiceDate->Date);
 		Printer()->Canvas->TextOut(3180, 3650, editCard->Text);
 		Printer()->Canvas->TextOut(1010, 3965, comboBoxOIBs->Text);
-		Printer()->Canvas->TextOut(700, 4565, editArticleID->Text);
-		Printer()->Canvas->TextOut(1350, 4565, comboBoxArticleTypes->Text);
-		Printer()->Canvas->TextOut(2200, 4565, editQuantity->Text);
-		Printer()->Canvas->TextOut(2535, 4565, comboBoxMeasureUnit->Text);
-		Printer()->Canvas->TextOut(2790, 4565, editWholesalePrice->Text);
-		Printer()->Canvas->TextOut(3430, 4565, editPdv->Text);
-		Printer()->Canvas->TextOut(4100, 4565, labelNoPdv->Caption);
+        printLine();
 		Printer()->Canvas->TextOut(3950, 5230, labelNoPdv1->Caption);
 		Printer()->Canvas->TextOut(3950, 5355, labelOnlyPdv->Caption);
 		Printer()->Canvas->TextOut(3730, 5355, labelPdvkurco->Caption);
@@ -432,13 +465,33 @@ void TformMain::updateFieldsFromReceipt(_di_IXMLreceiptType receipt){
 	datePickerArrivalDate->Date = receipt->arrivalDate;
 	editCard->Text = receipt->card;
 	comboBoxOIBs->Text = receipt->OIB;
-	editArticleID->Text = receipt->articleID;
-	comboBoxArticleTypes->Text = receipt->articleType;
-	editQuantity->Text = receipt->quantity;
-	comboBoxMeasureUnit->Text = receipt->measureUnit;
-	editWholesalePrice->Text = receipt->wholesalePrice;
-	editWholesaleDiscount->Text = receipt->wholesaleDiscount;
 	editPdv->Text = receipt->pdv;
+
+	if(!receipt->HasAttribute("version"))
+	{
+		// old save format with only one article
+		editArticleID->Text = receipt->articleID;
+		comboBoxArticleTypes->Text = receipt->articleType;
+		editQuantity->Text = receipt->quantity;
+		comboBoxMeasureUnit->Text = receipt->measureUnit;
+		editWholesalePrice->Text = receipt->wholesalePrice;
+		editWholesaleDiscount->Text = receipt->wholesaleDiscount;
+	}
+
+	StringGrid1->RowCount = receipt->articles->Count;
+	for(int i = 0; i < receipt->articles->Count; i++)
+	{
+		_di_IXMLarticleType article = receipt->articles->Get_article(i);
+		int row = StrToInt(article->articleNum) - 1;
+		StringGrid1->Cells[0][row] = article->articleID;
+		StringGrid1->Cells[1][row] = article->articleType;
+		StringGrid1->Cells[2][row] = article->quantity;
+		StringGrid1->Cells[3][row] = article->measureUnit;
+		StringGrid1->Cells[4][row] = article->wholesalePrice;
+		StringGrid1->Cells[5][row] = article->wholesaleDiscount;
+	}
+	StringGrid1->Row = 0;
+    updateFromGrid(0);
 }
 
 void TformMain::openReceipt(){
@@ -459,16 +512,43 @@ void TformMain::saveReceipt(){
 	receipt->arrivalDate = datePickerArrivalDate->Date;
 	receipt->card = editCard->Text;
 	receipt->OIB = comboBoxOIBs->Text;
-	receipt->articleID = editArticleID->Text;
-	receipt->articleType = comboBoxArticleTypes->Text;
-	receipt->quantity = RADstringToFloat(editQuantity->Text);
-	receipt->measureUnit = comboBoxMeasureUnit->Text;
-	receipt->wholesalePrice = RADstringToFloat(editWholesalePrice->Text);
-	receipt->wholesaleDiscount = RADstringToFloat(editWholesaleDiscount->Text);
 	receipt->pdv = RADstringToFloat(editPdv->Text);
 
+	if(!receipt->HasAttribute("version"))
+	{
+        // old save format with only one article
+        receipt->articleID = editArticleID->Text;
+		receipt->articleType = comboBoxArticleTypes->Text;
+		receipt->quantity = RADstringToFloat(editQuantity->Text);
+		receipt->measureUnit = comboBoxMeasureUnit->Text;
+		receipt->wholesalePrice = RADstringToFloat(editWholesalePrice->Text);
+		receipt->wholesaleDiscount = RADstringToFloat(editWholesaleDiscount->Text);
+	}
+	else
+	{
+		receipt->ChildNodes->Delete("articleID");
+		receipt->ChildNodes->Delete("articleType");
+		receipt->ChildNodes->Delete("quantity");
+		receipt->ChildNodes->Delete("measureUnit");
+		receipt->ChildNodes->Delete("wholesalePrice");
+		receipt->ChildNodes->Delete("wholesaleDiscount");
+	}
+
+	receipt->articles->Clear();
+	for(int i = 0; i < StringGrid1->RowCount; i++)
+	{
+		_di_IXMLarticleType article = receipt->articles->Add();
+		article->articleNum = IntToStr(i + 1);
+		article->articleID = StringGrid1->Cells[0][i];
+		article->articleType = StringGrid1->Cells[1][i];
+		article->quantity = StringGrid1->Cells[2][i];
+		article->measureUnit = StringGrid1->Cells[3][i];
+		article->wholesalePrice = StringGrid1->Cells[4][i];
+		article->wholesaleDiscount = StringGrid1->Cells[5][i];
+	}
+
 	XMLDocReceipt->SaveToFile(getReceiptFileName());
-	receiptSaved = True;
+	receiptSaved = true;
 }
 //------------------------------------------------------------------------------
 
@@ -514,8 +594,8 @@ void __fastcall TformMain::buttonOpenClick(TObject *Sender)
 	if(!FileOpenDialog1->Execute()) return;
 
 	openReceipt();
-
 	validateAll();
+    receiptSaved = true;
 }
 
 void __fastcall TformMain::TimerTimer(TObject *Sender)
@@ -535,6 +615,7 @@ void __fastcall TformMain::datePickerServiceDateChange(TObject *Sender)
 	datePickerServiceDate->Color = clMoneyGreen;
 	datePickerIssueDate->Date = datePickerServiceDate->Date;
 	datePickerArrivalDate->Date = IncMonth(datePickerServiceDate->Date, 1);
+    receiptSaved = false;
 }
 
 void __fastcall TformMain::datePickerIssueDateChange(TObject *Sender)
@@ -625,20 +706,65 @@ void __fastcall TformMain::comboBoxMeasureUnitChange(TObject *Sender)
 	StringGrid1->Cells[3][StringGrid1->Row] = comboBoxMeasureUnit->Text;
 }
 
-
-
-
-void __fastcall TformMain::GroupBox2MouseEnter(TObject *Sender)
+void __fastcall TformMain::spinEditReceiptNumberChange(TObject *Sender)
 {
-	// NASTY HACK!!! DatePicker doesnt call its onChange event, if after setting date in it,
-	// next action is click inside TComboBox!!!
-	// Since usual workflow is to set date and then click on the comboBoxArticleTypes, it is anoying
-	// when date doesnt update !!!
-    // This is for sure RAD/C++ builder bug, since eg clicking inside normal TextEdit it doesnt behave like this
-	mouse_event(MOUSEEVENTF_LEFTDOWN,0, 0, 0, 0);
-	mouse_event(MOUSEEVENTF_LEFTUP,0, 0, 0, 0);
+    receiptSaved = false;
 }
-//---------------------------------------------------------------------------
+
+void TformMain::updateFromGrid(int row)
+{
+	editArticleID->Text = StringGrid1->Cells[0][row];
+	comboBoxArticleTypes->Text = StringGrid1->Cells[1][row];
+	editQuantity->Text = StringGrid1->Cells[2][row];
+	comboBoxMeasureUnit->Text = StringGrid1->Cells[3][row];
+	editWholesalePrice->Text = StringGrid1->Cells[4][row];
+    validate(comboBoxArticleTypes);
+	calculate();
+}
+
+void __fastcall TformMain::StringGrid1Click(TObject *Sender)
+{
+	if(!validateAll())
+		StringGrid1->Row = currRow;
+	else
+		currRow = StringGrid1->Row;
+
+   updateFromGrid(currRow);
+}
+
+void __fastcall TformMain::btnAddNewArticleClick(TObject *Sender)
+{
+	if(!validateAll()) return;
+
+	StringGrid1->RowCount = StringGrid1->RowCount + 1;
+
+	currRow = StringGrid1->RowCount - 1;
+	StringGrid1->Cells[1][currRow] = "";
+	StringGrid1->Cells[2][currRow] = defQuantity;
+	StringGrid1->Cells[3][currRow] = comboBoxMeasureUnit->Items->Strings[defMeasureUnit];
+	StringGrid1->Cells[4][currRow] = defWholesalePrice;
+	StringGrid1->Row = currRow;  // setting row triggers stringGrid onClick event!!!
+}
+
+void __fastcall TformMain::btnDeleteArticleClick(TObject *Sender)
+{
+	if(StringGrid1->RowCount == 1) return;
+
+	for(int i = StringGrid1->Row; i < StringGrid1->RowCount - 1; i++)
+		StringGrid1->Rows[i]->Assign(StringGrid1->Rows[i + 1]);
+
+	for(int i = 0; i < StringGrid1->ColCount; i++)
+		StringGrid1->Cells[i][StringGrid1->RowCount - 1] = "";
+
+	StringGrid1->RowCount = StringGrid1->RowCount - 1;
+
+	int prevRow = StringGrid1->Row > 1 ? StringGrid1->Row - 1 : 0;
+	updateFromGrid(prevRow);
+	StringGrid1->Row = prevRow; // setting row triggers stringGrid onClick event!!!
+}
+
+
+
 
 //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //														    FORM CONTROLS EVENTS
@@ -649,4 +775,23 @@ void __fastcall TformMain::GroupBox2MouseEnter(TObject *Sender)
 
 
 
+
+
+
+
+
+
+//---------------------------------------------------------------------------
+
+void __fastcall TformMain::GroupBox6MouseEnter(TObject *Sender)
+{
+	// NASTY HACK!!! DatePicker doesnt call its onChange event, if after setting date in it,
+	// next action is click inside TComboBox!!!
+	// Since usual workflow is to set date and then click on the comboBoxArticleTypes, it is anoying
+	// when date doesnt update !!!
+    // This is for sure RAD/C++ builder bug, since eg clicking inside normal TextEdit it doesnt behave like this
+	mouse_event(MOUSEEVENTF_LEFTDOWN,0, 0, 0, 0);
+	mouse_event(MOUSEEVENTF_LEFTUP,0, 0, 0, 0);
+}
+//---------------------------------------------------------------------------
 

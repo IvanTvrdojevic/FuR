@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<receipt>
+<receipt version="0.1">
 	<number>1</number>
 	<serviceDate>01.01.2021.</serviceDate>
 	<issueDate>01.01.2021.</issueDate>
@@ -7,11 +7,23 @@
 	<arrivalDate>01.01.2021.</arrivalDate>
 	<card>HR00000000000000</card>
 	<OIB>_00000000000</OIB>
+	<pdv>0,0</pdv>
 	<articleID>_1</articleID>
 	<articleType>_0</articleType>
 	<quantity>0,0</quantity>
 	<measureUnit>_0</measureUnit>
 	<wholesalePrice>0,0</wholesalePrice>
 	<wholesaleDiscount>0,0</wholesaleDiscount>
-	<pdv>0,0</pdv>
+
+	<articles>
+		<article>
+			<articleNum>_1</articleNum>
+			<articleID>_1</articleID>
+			<articleType>_0</articleType>
+			<quantity>0,0</quantity>
+			<measureUnit>_0</measureUnit>
+			<wholesalePrice>0,0</wholesalePrice>
+			<wholesaleDiscount>0,0</wholesaleDiscount>
+		</article>
+	</articles>
 </receipt>
